@@ -51,7 +51,13 @@ const ItemListContainer: React.FC = () => {
         // En producción esto iría al backend, pero mockearemos si falla
         fetch('http://localhost:5000/api/products')
             .then(r => r.json())
-            .then(data => setProducts(data))
+            .then(result => {
+                if (result && result.success) {
+                    setProducts(result.data);
+                } else {
+                    throw new Error("Invalid response format");
+                }
+            })
             .catch(() => {
                 setProducts([
                     { id: 1, title: 'Mock Laptop', price: 1000, description: 'Mock', imageUrl: 'https://via.placeholder.com/150' },

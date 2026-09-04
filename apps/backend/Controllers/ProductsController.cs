@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BackendAPI.Data;
+using BackendAPI.Models;
 
 namespace BackendAPI.Controllers
 {
@@ -20,15 +21,15 @@ namespace BackendAPI.Controllers
         public async Task<IActionResult> GetProducts()
         {
             var products = await _context.Products.ToListAsync();
-            return Ok(products);
+            return Ok(ApiResponse<System.Collections.Generic.List<Product>>.SuccessResponse(products));
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProduct(int id)
         {
             var product = await _context.Products.FindAsync(id);
-            if (product == null) return NotFound();
-            return Ok(product);
+            if (product == null) return NotFound(ApiResponse<object>.ErrorResponse("Product not found"));
+            return Ok(ApiResponse<Product>.SuccessResponse(product));
         }
     }
 }

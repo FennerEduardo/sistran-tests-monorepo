@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button, Alert, Row, Col } from 'react-bootstrap';
+import { ApiResponse } from '../types/api';
 
 const PersonRegistration: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ const PersonRegistration: React.FC = () => {
     const [contactValue, setContactValue] = useState('');
 
     const [error, setError] = useState<string | null>(null);
+    const [errorDetails, setErrorDetails] = useState<string[]>([]);
     const [success, setSuccess] = useState<string | null>(null);
 
     const handleAddContact = () => {
@@ -31,6 +33,7 @@ const PersonRegistration: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError(null);
+        setErrorDetails([]);
         setSuccess(null);
 
         const payload = {
@@ -45,11 +48,19 @@ const PersonRegistration: React.FC = () => {
                 body: JSON.stringify(payload)
             });
 
-            if (!response.ok) {
-                const errData = await response.json();
-                setError(errData.message || JSON.stringify(errData));
+            const result: ApiResponse<any> = await response.json().catch(() => ({
+                success: false,
+                message: "No se pudo interpretar la respuesta del servidor.",
+                errors: []
+            }));
+
+            if (!response.ok || !result.success) {
+                setError(result.message || 'Error desconocido al registrar persona');
+                if (result.errors && result.errors.length > 0) {
+                    setErrorDetails(result.errors);
+                }
             } else {
-                setSuccess('Persona registrada exitosamente.');
+                setSuccess(result.message || 'Persona registrada exitosamente.');
                 setFormData({ documentId: '', firstName: '', lastName: '', birthDate: '' });
                 setContacts([]);
             }
@@ -63,7 +74,16 @@ const PersonRegistration: React.FC = () => {
             <h2>Registro de Personas</h2>
             <p>Implementación del requerimiento 14 de la prueba .NET.</p>
 
-            {error && <Alert variant="danger">{error}</Alert>}
+            {error && (
+                <Alert variant="danger">
+                    {error}
+                    {errorDetails.length > 0 && (
+                        <ul className="mb-0 mt-2">
+                            {errorDetails.map((err, i) => <li key={i}>{err}</li>)}
+                        </ul>
+                    )}
+                </Alert>
+            )}
             {success && <Alert variant="success">{success}</Alert>}
 
             <Form onSubmit={handleSubmit}>

@@ -23,7 +23,7 @@ namespace BackendAPI.Controllers
             order.OrderDate = DateTime.UtcNow;
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
-            return Ok(order);
+            return Ok(ApiResponse<Order>.SuccessResponse(order, "Order created successfully"));
         }
     }
 }

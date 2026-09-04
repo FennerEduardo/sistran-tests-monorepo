@@ -23,36 +23,35 @@ namespace BackendAPI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
+                return BadRequest(ApiResponse<object>.ErrorResponse("Validación fallida", errors));
             }
 
-            // Validar existencia de documento
             var exists = await _context.Persons.AnyAsync(p => p.DocumentId == person.DocumentId);
             if (exists)
             {
-                return BadRequest(new { message = "Ya existe una persona con ese documento de identidad." });
+                return BadRequest(ApiResponse<object>.ErrorResponse("Ya existe una persona con ese documento de identidad."));
             }
 
-            // Validar límites de contactos
             var phoneCount = person.Contacts.Count(c => c.Type == "Phone");
             var emailCount = person.Contacts.Count(c => c.Type == "Email");
             var addressCount = person.Contacts.Count(c => c.Type == "Address");
 
-            if (phoneCount > 2) return BadRequest(new { message = "Máximo 2 números telefónicos permitidos." });
-            if (emailCount > 2) return BadRequest(new { message = "Máximo 2 correos electrónicos permitidos." });
-            if (addressCount > 2) return BadRequest(new { message = "Máximo 2 direcciones físicas permitidas." });
+            if (phoneCount > 2) return BadRequest(ApiResponse<object>.ErrorResponse("Máximo 2 números telefónicos permitidos."));
+            if (emailCount > 2) return BadRequest(ApiResponse<object>.ErrorResponse("Máximo 2 correos electrónicos permitidos."));
+            if (addressCount > 2) return BadRequest(ApiResponse<object>.ErrorResponse("Máximo 2 direcciones físicas permitidas."));
 
             _context.Persons.Add(person);
             await _context.SaveChangesAsync();
 
-            return Ok(person);
+            return Ok(ApiResponse<Person>.SuccessResponse(person, "Persona registrada exitosamente."));
         }
 
         [HttpGet]
         public async Task<IActionResult> GetPersons()
         {
             var persons = await _context.Persons.Include(p => p.Contacts).ToListAsync();
-            return Ok(persons);
+            return Ok(ApiResponse<System.Collections.Generic.List<Person>>.SuccessResponse(persons));
         }
     }
 }

@@ -27,6 +27,8 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+app.UseMiddleware<BackendAPI.Middleware.GlobalExceptionMiddleware>();
+
 // Auto-migrate database on startup
 using (var scope = app.Services.CreateScope())
 {
