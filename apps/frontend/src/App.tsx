@@ -8,6 +8,7 @@ import { Button } from './components/ui/Button';
 import Ecommerce from './pages/Ecommerce';
 import PersonRegistration from './pages/PersonRegistration';
 import QAResponses from './pages/QAResponses';
+import Admin from './pages/Admin';
 
 /**
  * Main Application Component
@@ -32,6 +33,7 @@ function App() {
     { path: '/ecommerce', label: t('nav.ecommerce') },
     { path: '/registration', label: t('nav.register') },
     { path: '/qa', label: t('nav.qa') },
+    { path: '/admin', label: t('nav.admin') },
   ];
 
   return (
@@ -80,6 +82,7 @@ function App() {
           <Route path="/ecommerce/*" element={<Ecommerce />} />
           <Route path="/registration" element={<PersonRegistration />} />
           <Route path="/qa" element={<QAResponses />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </main>
 

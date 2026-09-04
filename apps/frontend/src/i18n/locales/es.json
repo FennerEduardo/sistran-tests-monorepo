@@ -2,7 +2,36 @@
   "nav": {
     "ecommerce": "E-Commerce",
     "register": "Registro",
-    "qa": "Preguntas"
+    "qa": "Preguntas",
+    "admin": "Admin"
+  },
+  "admin": {
+    "title": "Panel de Administración",
+    "description": "Gestiona productos y categorías de la tienda e-commerce.",
+    "categories": "Categorías",
+    "products": "Productos",
+    "categoryName": "Nombre (ES)",
+    "categoryNameEn": "Nombre (EN)",
+    "productTitle": "Título (ES)",
+    "productTitleEn": "Título (EN)",
+    "productDesc": "Descripción (ES)",
+    "productDescEn": "Descripción (EN)",
+    "productPrice": "Precio",
+    "productImage": "URL de Imagen",
+    "productCategory": "Categoría",
+    "searchImages": "Buscar Imágenes (Pexels)",
+    "searchPlaceholder": "Buscar fotos...",
+    "selectImage": "Usar esta imagen",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "create": "Crear Nuevo",
+    "confirmDelete": "¿Estás seguro de eliminar este elemento?",
+    "duplicateCategory": "Ya existe una categoría con este nombre.",
+    "noCategories": "No hay categorías aún. Crea una para empezar.",
+    "noProducts": "No hay productos aún. Crea uno para empezar.",
+    "actions": "Acciones"
   },
   "ecommerce": {
     "title": "Bienvenido a nuestro E-Commerce",

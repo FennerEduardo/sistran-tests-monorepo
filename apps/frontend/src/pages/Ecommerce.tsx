@@ -155,8 +155,25 @@ const Item: React.FC<{ product: any }> = ({ product }) => {
                 backgroundImage: `url(${product.imageUrl})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
-                borderBottom: '1px solid var(--color-border)'
-            }} />
+                borderBottom: '1px solid var(--color-border)',
+                position: 'relative'
+            }}>
+                {product.category && (
+                    <span style={{
+                        position: 'absolute',
+                        top: '0.5rem',
+                        right: '0.5rem',
+                        backgroundColor: 'var(--color-primary)',
+                        color: '#fff',
+                        padding: '0.15rem 0.5rem',
+                        borderRadius: '999px',
+                        fontSize: '0.7rem',
+                        fontWeight: 600
+                    }}>
+                        {product.category.name}
+                    </span>
+                )}
+            </div>
             <CardBody style={{ display: 'flex', flexDirection: 'column' }}>
                 <h4 style={{ fontSize: '1.125rem', marginBottom: '0.5rem' }}>{product.title}</h4>
                 <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.875rem', flexGrow: 1 }}>{product.description}</p>
