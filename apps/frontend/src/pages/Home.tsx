@@ -34,6 +34,7 @@ const Home: React.FC = () => {
 
     const docs = [
         { title: t('home.docSwagger'), desc: t('home.docSwaggerDesc'), url: 'http://localhost:5000/swagger' },
+        { title: t('home.docTypedoc'), desc: t('home.docTypedocDesc'), url: 'http://localhost/docs' },
         { title: t('home.docGherkin'), desc: t('home.docGherkinDesc'), url: null },
     ];
 
@@ -134,7 +135,8 @@ docker-compose up -d --build
 # Access the application
 Frontend:  http://localhost
 Backend:   http://localhost:5000
-Swagger:   http://localhost:5000/swagger`}
+Swagger:   http://localhost:5000/swagger
+Frontend Docs: http://localhost/docs`}
                     </pre>
                 </CardBody>
             </Card>

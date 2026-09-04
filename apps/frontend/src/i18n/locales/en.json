@@ -22,6 +22,8 @@
     "docsTitle": "Available Documentation",
     "docSwagger": "Swagger / OpenAPI",
     "docSwaggerDesc": "Interactive API documentation auto-generated from the .NET backend. Explore all endpoints, models, and try requests live.",
+    "docTypedoc": "Frontend Documentation (TypeDoc)",
+    "docTypedocDesc": "Static documentation generated from TypeScript source code, detailing all React components, contexts, and hooks.",
     "docGherkin": "BDD Feature Specs (Gherkin)",
     "docGherkinDesc": "Behavior-Driven Development specifications describing all functional requirements in executable Gherkin syntax (.feature files).",
     "viewDocs": "View Documentation",

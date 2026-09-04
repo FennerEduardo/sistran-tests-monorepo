@@ -56,6 +56,10 @@ namespace BackendAPI.Controllers
             return Ok(ApiResponse<Person>.SuccessResponse(person, "Persona registrada exitosamente."));
         }
 
+        /// <summary>
+        /// Retrieves a list of all registered persons along with their contact information.
+        /// </summary>
+        /// <returns>A standard API response containing a list of Person objects.</returns>
         [HttpGet]
         public async Task<IActionResult> GetPersons()
         {

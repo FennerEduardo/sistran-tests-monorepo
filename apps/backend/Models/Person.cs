@@ -4,32 +4,41 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BackendAPI.Models
 {
+    /// <summary>
+    /// Represents a person registered in the system with their personal details and contact methods.
+    /// </summary>
     public class Person
     {
+        /// <summary>
+        /// Unique internal identifier for the person.
+        /// </summary>
         public int Id { get; set; }
 
+        /// <summary>
+        /// The alphanumeric national identification document of the person.
+        /// </summary>
         [Required]
         [RegularExpression(@"^[a-zA-Z0-9]+$", ErrorMessage = "El documento de identidad sólo acepta valores alfanuméricos.")]
         public string DocumentId { get; set; }
 
+        /// <summary>
+        /// The person's first name(s). Must contain only alphabetical characters.
+        /// </summary>
         [Required]
         [RegularExpression(@"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$", ErrorMessage = "Los nombres sólo aceptan caracteres del alfabeto latino y no pueden contener números.")]
-        /// <summary>
-        /// The person's first name.
-        /// </summary>
         public string FirstName { get; set; }
 
+        /// <summary>
+        /// The person's last name(s). Must contain only alphabetical characters.
+        /// </summary>
         [Required]
         [RegularExpression(@"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$", ErrorMessage = "Los apellidos sólo aceptan caracteres del alfabeto latino y no pueden contener números.")]
-        /// <summary>
-        /// The person's last name.
-        /// </summary>
         public string LastName { get; set; }
 
-        [Required]
         /// <summary>
         /// The person's date of birth.
         /// </summary>
+        [Required]
         public DateTime BirthDate { get; set; }
 
         /// <summary>
