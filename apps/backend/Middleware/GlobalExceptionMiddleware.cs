@@ -8,6 +8,10 @@ using BackendAPI.Models;
 
 namespace BackendAPI.Middleware
 {
+    /// <summary>
+    /// Global exception handling middleware that catches all unhandled exceptions
+    /// and formats them into a standardized ApiResponse JSON format.
+    /// </summary>
     public class GlobalExceptionMiddleware
     {
         private readonly RequestDelegate _next;

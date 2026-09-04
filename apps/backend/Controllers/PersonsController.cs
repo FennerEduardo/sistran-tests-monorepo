@@ -7,6 +7,10 @@ using BackendAPI.Models;
 
 namespace BackendAPI.Controllers
 {
+    /// <summary>
+    /// Controller responsible for managing person registration and retrieval.
+    /// Fulfills the constraints specified in requirement 14 of the SISTRAN technical test.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class PersonsController : ControllerBase
@@ -18,6 +22,11 @@ namespace BackendAPI.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Registers a new person in the system, validating their data and the number of contacts.
+        /// </summary>
+        /// <param name="person">The object containing the person's information to be registered.</param>
+        /// <returns>The created person if validation is successful, or an error if business rules are not met.</returns>
         [HttpPost]
         public async Task<IActionResult> RegisterPerson([FromBody] Person person)
         {

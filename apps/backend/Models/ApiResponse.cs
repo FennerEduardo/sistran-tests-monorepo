@@ -2,6 +2,11 @@ using System.Collections.Generic;
 
 namespace BackendAPI.Models
 {
+    /// <summary>
+    /// Standardized response wrapper for all API endpoints.
+    /// Ensures a consistent structure for success and error payloads.
+    /// </summary>
+    /// <typeparam name="T">The type of the data payload.</typeparam>
     public class ApiResponse<T>
     {
         public bool Success { get; set; }

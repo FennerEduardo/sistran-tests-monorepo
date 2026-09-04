@@ -6,6 +6,10 @@ using BackendAPI.Models;
 
 namespace BackendAPI.Controllers
 {
+    /// <summary>
+    /// Controller responsible for managing products and the e-commerce store catalog.
+    /// Provides endpoints to list available products for the store.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
@@ -17,6 +21,10 @@ namespace BackendAPI.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Retrieves the complete list of products available in the store.
+        /// </summary>
+        /// <returns>A list of product objects.</returns>
         [HttpGet]
         public async Task<IActionResult> GetProducts()
         {
