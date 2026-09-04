@@ -1,0 +1,7 @@
+{
+  "projectName": "sistran-tests-monorepo",
+  "architecture": "Hexagonal Architecture",
+  "language": "csharp",
+  "framework": "dotnet",
+  "testRunner": "xunit"
+}
