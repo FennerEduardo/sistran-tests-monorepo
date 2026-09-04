@@ -17,5 +17,27 @@ services:
     volumes:
       - sqlserver_data:/var/opt/mssql
 
+  backend:
+    build: 
+      context: ./apps/backend
+      dockerfile: Dockerfile
+    container_name: sistran_backend
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=db,1433;Database=SistranDB;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
+    ports:
+      - "5000:8080"
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./apps/frontend
+      dockerfile: Dockerfile
+    container_name: sistran_frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
 volumes:
   sqlserver_data:
