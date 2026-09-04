@@ -127,8 +127,8 @@ const PersonRegistration: React.FC = () => {
                         required 
                     />
 
-                    <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-                        <div style={{ flex: '1 1 calc(50% - 1rem)' }}>
+                    <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
+                        <div style={{ flex: '1 1 250px' }}>
                             <Input 
                                 label={`${t('form.firstName')} (No numbers)`}
                                 type="text" 
@@ -137,7 +137,7 @@ const PersonRegistration: React.FC = () => {
                                 required 
                             />
                         </div>
-                        <div style={{ flex: '1 1 calc(50% - 1rem)' }}>
+                        <div style={{ flex: '1 1 250px' }}>
                             <Input 
                                 label={`${t('form.lastName')} (No numbers)`}
                                 type="text" 
@@ -148,19 +148,21 @@ const PersonRegistration: React.FC = () => {
                         </div>
                     </div>
 
-                    <Input 
-                        label={t('form.birthDate')}
-                        type="date" 
-                        value={formData.birthDate} 
-                        onChange={e => setFormData({...formData, birthDate: e.target.value})} 
-                        required 
-                    />
+                    <div style={{ marginBottom: '1rem' }}>
+                        <Input 
+                            label={t('form.birthDate')}
+                            type="date" 
+                            value={formData.birthDate} 
+                            onChange={e => setFormData({...formData, birthDate: e.target.value})} 
+                            required 
+                        />
+                    </div>
 
                     <h4 style={{ marginTop: '2rem', marginBottom: '1rem' }}>Contact Information</h4>
                     <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.875rem' }}>Maximum 2 phones, 2 emails, 2 physical addresses</p>
                     
-                    <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-end', marginBottom: '1.5rem' }}>
-                        <div style={{ flex: '1' }}>
+                    <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-end', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
+                        <div style={{ flex: '1 1 150px' }}>
                             <label className="input-label" style={{ display: 'block', marginBottom: 'var(--space-1)' }}>Type</label>
                             <select 
                                 className="input-control" 
@@ -173,7 +175,7 @@ const PersonRegistration: React.FC = () => {
                                 <option value="Address">Physical Address</option>
                             </select>
                         </div>
-                        <div style={{ flex: '2' }}>
+                        <div style={{ flex: '2 1 200px' }}>
                             <Input 
                                 label="Value"
                                 type="text" 
@@ -183,7 +185,7 @@ const PersonRegistration: React.FC = () => {
                                 style={{ marginBottom: 0 }}
                             />
                         </div>
-                        <div>
+                        <div style={{ flex: '0 0 auto', width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
                             <Button type="button" variant="secondary" onClick={handleAddContact}>Add</Button>
                         </div>
                     </div>
