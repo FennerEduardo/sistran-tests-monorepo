@@ -1,0 +1,39 @@
+{
+  "nav": {
+    "ecommerce": "E-Commerce",
+    "register": "Registro",
+    "qa": "Preguntas"
+  },
+  "ecommerce": {
+    "title": "Bienvenido a nuestro E-Commerce",
+    "description": "Explora nuestros productos y encuentra las mejores ofertas.",
+    "featuredProducts": "Productos Destacados",
+    "loading": "Cargando productos...",
+    "error": "Error al cargar los productos. Por favor intenta de nuevo.",
+    "addToCart": "Añadir al Carrito",
+    "price": "Precio: $"
+  },
+  "form": {
+    "title": "Registro de Persona",
+    "description": "Completa el formulario para registrar a una nueva persona.",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "birthDate": "Fecha de Nacimiento",
+    "submit": "Registrar",
+    "submitting": "Registrando...",
+    "success": "¡Registro exitoso!",
+    "error": "Error al registrar. Por favor revisa los datos."
+  },
+  "qa": {
+    "title": "Preguntas y Respuestas Técnicas",
+    "description": "Respuestas a la prueba técnica.",
+    "q1": "Explica la diferencia entre una clase y un objeto en C#.",
+    "a1": "Una clase es una plantilla que define las propiedades y métodos. Un objeto es una instancia de una clase, creada en memoria, que contiene datos reales.",
+    "q2": "¿Qué es una interfaz en C# y para qué sirve?",
+    "a2": "Una interfaz define un contrato con firmas de métodos y propiedades sin implementación. Sirve para lograr abstracción, forzar a las clases a implementar miembros específicos y soportar herencia múltiple de comportamiento.",
+    "q3": "¿Qué es Entity Framework y cuál es su función principal?",
+    "a3": "Entity Framework es un ORM (Mapeador Objeto-Relacional) para .NET. Su función principal es permitir a los desarrolladores trabajar con la base de datos usando objetos .NET, eliminando gran parte del código SQL.",
+    "q4": "Menciona 3 características nuevas de C# 10 o posterior.",
+    "a4": "1. Directivas using globales. 2. Declaración de namespace a nivel de archivo. 3. Miembros requeridos (C# 11) / Constructores primarios (C# 12)."
+  }
+}

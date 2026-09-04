@@ -63,8 +63,13 @@ El monorrepo cuenta con un robusto sistema de testing que puede correrse de mane
   pnpm cypress run
   ```
 
-## Decisiones Técnicas Destacadas
+## Decisiones Técnicas y de Diseño (Engineering Decisions)
 
-- **Global Exception Middleware**: El backend tiene implementado un formato estándar de respuesta (`ApiResponse<T>`) el cual atrapa excepciones globales e impide enviar StackTraces u objetos rotos al frontend.
-- **Frontend Types**: El frontend mapea estas respuestas tipadas fuertemente con TypeScript para un mejor manejo de errores en el UI.
-- **Optimización AWS**: La arquitectura Docker está pensada para ser desplegable directamente en una instancia EC2 `t2.micro` utilizando Amazon Linux o Ubuntu Server, manteniendo el footprint de memoria de SQL Server bajo control.
+Para demostrar una disciplina avanzada de Ingeniería Frontend y Arquitectura, se tomaron decisiones adicionales más allá del simple cumplimiento de requerimientos:
+
+- **Sistema de Diseño (Design System):** Se construyó un sistema de tokens basado en variables CSS (`src/styles/tokens.css`). Esto permitió abandonar clases utilitarias rígidas (Bootstrap) en favor de una arquitectura UI moderna y escalable.
+- **Soporte Multidioma (i18n):** Se integró `react-i18next` para ofrecer soporte nativo en Español e Inglés, abstrayendo todos los textos quemados hacia diccionarios semánticos (ej. `ecommerce.title`).
+- **Modo Claro / Oscuro Dinámico:** Se implementó un ThemeSwitcher persitente. El "Modo Claro" está diseñado para transmitir la confiabilidad y profesionalismo corporativo de **SISTRAN**, mientras que el "Modo Oscuro" utiliza una paleta enfocada al ámbito de ingeniería "developer" de Fenner Eduardo.
+- **Primitivas UI y Component Testing:** Se extrajeron componentes base (Button, Input, Card) para fomentar reutilización de código. Se agregaron pruebas de componentes aisladas (Component Testing) utilizando Cypress para certificar su funcionamiento independiente.
+- **Global Exception Middleware (Backend):** El backend estandariza respuestas a través de un `ApiResponse<T>`, atrapando excepciones para que el frontend jamás procese StackTraces o errores no formateados.
+- **Optimización Cloud:** La infraestructura de Docker Compose fue optimizada para despliegues ligeros (t2.micro en AWS), controlando el uso de memoria de SQL Server.

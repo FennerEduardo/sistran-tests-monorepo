@@ -1,0 +1,39 @@
+{
+  "nav": {
+    "ecommerce": "E-Commerce",
+    "register": "Registration",
+    "qa": "Q&A"
+  },
+  "ecommerce": {
+    "title": "Welcome to our E-Commerce",
+    "description": "Explore our products and find the best offers.",
+    "featuredProducts": "Featured Products",
+    "loading": "Loading products...",
+    "error": "Failed to load products. Please try again.",
+    "addToCart": "Add to Cart",
+    "price": "Price: $"
+  },
+  "form": {
+    "title": "Person Registration",
+    "description": "Complete the form below to register a new person.",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "birthDate": "Birth Date",
+    "submit": "Register",
+    "submitting": "Registering...",
+    "success": "Registration successful!",
+    "error": "Error registering. Please check the data."
+  },
+  "qa": {
+    "title": "Q&A Technical Test",
+    "description": "Answers to the technical questions.",
+    "q1": "Explain the difference between a class and an object in C#.",
+    "a1": "A class is a blueprint or template that defines the properties and methods (behavior) that objects will have. An object is an instance of a class, created in memory, which holds actual data.",
+    "q2": "What is an interface in C# and what is it used for?",
+    "a2": "An interface defines a contract containing method and property signatures without implementation. It's used to achieve abstraction, enforce that classes implement specific members, and support multiple inheritance of behavior.",
+    "q3": "What is Entity Framework and what is its main function?",
+    "a3": "Entity Framework is an Object-Relational Mapper (ORM) for .NET. Its main function is to allow developers to work with a database using .NET objects, eliminating the need for most data-access code (SQL).",
+    "q4": "Mention 3 new features of C# 10 or later.",
+    "a4": "1. Global using directives. 2. File-scoped namespace declaration. 3. Required members (C# 11) / Primary constructors for non-record classes (C# 12)."
+  }
+}

@@ -11,12 +11,17 @@
   },
   "dependencies": {
     "bootstrap": "^5.3.8",
+    "i18next": "^26.4.2",
+    "lucide-react": "^1.41.0",
     "react": "^19.2.8",
     "react-bootstrap": "^2.10.10",
     "react-dom": "^19.2.8",
+    "react-i18next": "^17.0.13",
     "react-router-dom": "^7.18.3"
   },
   "devDependencies": {
+    "@cypress/react18": "^2.0.1",
+    "@cypress/vite-dev-server": "^8.0.0",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
     "@testing-library/user-event": "^14.6.7",
@@ -25,6 +30,7 @@
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
     "@vitejs/plugin-react": "^6.1.0",
+    "cypress": "^15.21.1",
     "jsdom": "^30.0.1",
     "oxlint": "^1.79.0",
     "typedoc": "^0.28.20",

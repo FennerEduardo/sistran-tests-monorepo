@@ -1,6 +1,8 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
-import { Card, Button, Row, Col, Badge } from 'react-bootstrap';
 import { Link, Routes, Route, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { Card, CardHeader, CardBody, CardFooter } from '../components/ui/Card';
+import { Button } from '../components/ui/Button';
 
 /**
  * Context to share the shopping cart state across Ecommerce components.
@@ -15,6 +17,7 @@ const CartContext = createContext<any>(null);
  * @returns {React.JSX.Element} The Ecommerce view.
  */
 const Ecommerce: React.FC = () => {
+    const { t } = useTranslation();
     const [cart, setCart] = useState<any[]>([]);
 
     /**
@@ -37,10 +40,11 @@ const Ecommerce: React.FC = () => {
     return (
         <CartContext.Provider value={{ cart, addToCart, cartTotal }}>
             <div>
-                <h2>SISTRAN E-commerce</h2>
-                <div className="d-flex justify-content-end mb-3">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+                    <h2>{t('ecommerce.title')}</h2>
                     <CartWidget />
                 </div>
+                <p style={{ color: 'var(--color-text-secondary)', marginBottom: '2rem' }}>{t('ecommerce.description')}</p>
                 <Routes>
                     <Route path="/" element={<ItemListContainer />} />
                     <Route path="/checkout" element={<Checkout />} />
@@ -60,8 +64,20 @@ const Ecommerce: React.FC = () => {
 const CartWidget: React.FC = () => {
     const { cartTotal } = useContext(CartContext);
     return (
-        <Link to="/ecommerce/checkout" className="btn btn-outline-primary">
-            🛒 Cart <Badge bg="secondary">{cartTotal}</Badge>
+        <Link to="/ecommerce/checkout" style={{ textDecoration: 'none' }}>
+            <Button variant="outline">
+                🛒 Cart
+                <span style={{ 
+                    backgroundColor: 'var(--color-primary)', 
+                    color: '#fff', 
+                    borderRadius: '10px', 
+                    padding: '0.1rem 0.5rem', 
+                    fontSize: '0.75rem',
+                    marginLeft: '0.5rem'
+                }}>
+                    {cartTotal}
+                </span>
+            </Button>
         </Link>
     );
 };
@@ -75,7 +91,9 @@ const CartWidget: React.FC = () => {
  * @returns {React.JSX.Element} The product list grid.
  */
 const ItemListContainer: React.FC = () => {
+    const { t } = useTranslation();
     const [products, setProducts] = useState<any[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         fetch('http://localhost:5000/api/products')
@@ -89,20 +107,27 @@ const ItemListContainer: React.FC = () => {
             })
             .catch(() => {
                 setProducts([
-                    { id: 1, title: 'Mock Laptop', price: 1000, description: 'Mock', imageUrl: 'https://via.placeholder.com/150' },
-                    { id: 2, title: 'Mock Book', price: 20, description: 'Mock', imageUrl: 'https://via.placeholder.com/150' }
+                    { id: 1, title: 'Mock Laptop', price: 1000, description: 'High performance laptop', imageUrl: 'https://via.placeholder.com/150' },
+                    { id: 2, title: 'Mock Book', price: 20, description: 'Interesting read', imageUrl: 'https://via.placeholder.com/150' },
+                    { id: 3, title: 'Mock Headphones', price: 150, description: 'Noise cancelling', imageUrl: 'https://via.placeholder.com/150' }
                 ]);
-            });
+            })
+            .finally(() => setIsLoading(false));
     }, []);
 
+    if (isLoading) {
+        return <p>{t('ecommerce.loading')}</p>;
+    }
+
     return (
-        <Row>
-            {products.map(p => (
-                <Col key={p.id} md={4}>
-                    <Item product={p} />
-                </Col>
-            ))}
-        </Row>
+        <div>
+            <h3 style={{ marginBottom: '1.5rem' }}>{t('ecommerce.featuredProducts')}</h3>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '1.5rem' }}>
+                {products.map(p => (
+                    <Item key={p.id} product={p} />
+                ))}
+            </div>
+        </div>
     );
 };
 
@@ -115,15 +140,30 @@ const ItemListContainer: React.FC = () => {
  * @returns {React.JSX.Element} The product card.
  */
 const Item: React.FC<{ product: any }> = ({ product }) => {
+    const { t } = useTranslation();
     const { addToCart } = useContext(CartContext);
     return (
-        <Card className="mb-4">
-            <Card.Img variant="top" src={product.imageUrl} />
-            <Card.Body>
-                <Card.Title>{product.title}</Card.Title>
-                <Card.Text>${product.price}</Card.Text>
-                <Button variant="primary" onClick={() => addToCart(product, 1)}>Add to Cart</Button>
-            </Card.Body>
+        <Card style={{ height: '100%' }}>
+            <div style={{ 
+                height: '150px', 
+                backgroundColor: 'var(--color-surface)',
+                backgroundImage: `url(${product.imageUrl})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                borderBottom: '1px solid var(--color-border)'
+            }} />
+            <CardBody style={{ display: 'flex', flexDirection: 'column' }}>
+                <h4 style={{ fontSize: '1.125rem', marginBottom: '0.5rem' }}>{product.title}</h4>
+                <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.875rem', flexGrow: 1 }}>{product.description}</p>
+                <div style={{ marginTop: '1rem', fontWeight: 600, fontSize: '1.25rem', color: 'var(--color-primary)' }}>
+                    {t('ecommerce.price')}{product.price}
+                </div>
+            </CardBody>
+            <CardFooter>
+                <Button variant="primary" style={{ width: '100%' }} onClick={() => addToCart(product, 1)}>
+                    {t('ecommerce.addToCart')}
+                </Button>
+            </CardFooter>
         </Card>
     );
 };
@@ -142,23 +182,31 @@ const Checkout: React.FC = () => {
     const total = cart.reduce((acc: number, item: any) => acc + (item.product.price * item.quantity), 0);
 
     return (
-        <div>
-            <h3>Purchase Summary</h3>
-            {cart.length === 0 ? <p>The cart is empty.</p> : (
-                <ul>
-                    {cart.map((c: any, i: number) => (
-                        <li key={i}>{c.quantity}x {c.product.title} - ${c.product.price * c.quantity}</li>
-                    ))}
-                </ul>
-            )}
-            <h4>Total: ${total}</h4>
-            <Button variant="success" disabled={cart.length === 0} onClick={() => {
-                alert('Purchase completed');
-                // We should clear the cart here but the context setter wasn't passed down initially.
-                // Assuming success navigate away:
-                navigate('/ecommerce');
-            }}>Complete Purchase</Button>
-        </div>
+        <Card>
+            <CardHeader>Purchase Summary</CardHeader>
+            <CardBody>
+                {cart.length === 0 ? <p>The cart is empty.</p> : (
+                    <ul style={{ listStyleType: 'none', padding: 0 }}>
+                        {cart.map((c: any, i: number) => (
+                            <li key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '0.75rem 0', borderBottom: '1px solid var(--color-border)' }}>
+                                <span>{c.quantity}x {c.product.title}</span>
+                                <strong>${c.product.price * c.quantity}</strong>
+                            </li>
+                        ))}
+                    </ul>
+                )}
+                <h3 style={{ marginTop: '1.5rem', textAlign: 'right' }}>Total: ${total}</h3>
+            </CardBody>
+            <CardFooter>
+                <Button variant="success" style={{ marginLeft: 'auto' }} disabled={cart.length === 0} onClick={() => {
+                    alert('Purchase completed');
+                    // In a real app we'd clear the cart via Context here
+                    navigate('/ecommerce');
+                }}>
+                    Complete Purchase
+                </Button>
+            </CardFooter>
+        </Card>
     );
 };
 
