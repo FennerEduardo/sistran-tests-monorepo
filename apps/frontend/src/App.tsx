@@ -4,6 +4,14 @@ import Ecommerce from './pages/Ecommerce';
 import PersonRegistration from './pages/PersonRegistration';
 import QAResponses from './pages/QAResponses';
 
+/**
+ * Main Application Component
+ * 
+ * Sets up the routing and main layout for the SISTRAN Monorepo Frontend.
+ * Includes a navigation bar and the main content container.
+ * 
+ * @returns {React.JSX.Element} The root application component.
+ */
 function App() {
   return (
     <>
@@ -14,8 +22,8 @@ function App() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link as={Link} to="/ecommerce">E-commerce</Nav.Link>
-              <Nav.Link as={Link} to="/registration">Registro de Personas</Nav.Link>
-              <Nav.Link as={Link} to="/qa">Respuestas Prueba</Nav.Link>
+              <Nav.Link as={Link} to="/registration">Person Registration</Nav.Link>
+              <Nav.Link as={Link} to="/qa">Test Responses</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -23,7 +31,7 @@ function App() {
 
       <Container className="mt-4">
         <Routes>
-          <Route path="/" element={<h2>Bienvenido al Monorrepo de Pruebas SISTRAN</h2>} />
+          <Route path="/" element={<h2>Welcome to SISTRAN Tests Monorepo</h2>} />
           <Route path="/ecommerce/*" element={<Ecommerce />} />
           <Route path="/registration" element={<PersonRegistration />} />
           <Route path="/qa" element={<QAResponses />} />

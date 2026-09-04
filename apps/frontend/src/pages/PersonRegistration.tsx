@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
 import { Form, Button, Alert, Row, Col } from 'react-bootstrap';
-import { ApiResponse } from '../types/api';
+import type { ApiResponse } from '../types/api';
 
+/**
+ * PersonRegistration Component
+ * 
+ * Provides a UI to register a person along with their contact information.
+ * Enforces business rules defined in the backend (.NET Test Requirement 14).
+ * 
+ * @returns {React.JSX.Element} The rendered Person Registration form.
+ */
 const PersonRegistration: React.FC = () => {
     const [formData, setFormData] = useState({
         documentId: '',
@@ -18,18 +26,29 @@ const PersonRegistration: React.FC = () => {
     const [errorDetails, setErrorDetails] = useState<string[]>([]);
     const [success, setSuccess] = useState<string | null>(null);
 
+    /**
+     * Adds a new contact to the local component state.
+     */
     const handleAddContact = () => {
         if (!contactValue) return;
         setContacts([...contacts, { type: contactType, value: contactValue }]);
         setContactValue('');
     };
 
+    /**
+     * Removes a contact from the local component state by its index.
+     * @param {number} index The array index of the contact to remove.
+     */
     const handleRemoveContact = (index: number) => {
         const newContacts = [...contacts];
         newContacts.splice(index, 1);
         setContacts(newContacts);
     };
 
+    /**
+     * Submits the form data to the backend API.
+     * @param {React.FormEvent} e The form submit event.
+     */
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError(null);
@@ -50,29 +69,29 @@ const PersonRegistration: React.FC = () => {
 
             const result: ApiResponse<any> = await response.json().catch(() => ({
                 success: false,
-                message: "No se pudo interpretar la respuesta del servidor.",
+                message: "Could not parse server response.",
                 errors: []
             }));
 
             if (!response.ok || !result.success) {
-                setError(result.message || 'Error desconocido al registrar persona');
+                setError(result.message || 'Unknown error while registering person');
                 if (result.errors && result.errors.length > 0) {
                     setErrorDetails(result.errors);
                 }
             } else {
-                setSuccess(result.message || 'Persona registrada exitosamente.');
+                setSuccess(result.message || 'Person registered successfully.');
                 setFormData({ documentId: '', firstName: '', lastName: '', birthDate: '' });
                 setContacts([]);
             }
         } catch (err: any) {
-            setError(err.message || 'Error de conexión');
+            setError(err.message || 'Connection error');
         }
     };
 
     return (
         <div>
-            <h2>Registro de Personas</h2>
-            <p>Implementación del requerimiento 14 de la prueba .NET.</p>
+            <h2>Person Registration</h2>
+            <p>Implementation of requirement 14 of the .NET test.</p>
 
             {error && (
                 <Alert variant="danger">
@@ -88,46 +107,46 @@ const PersonRegistration: React.FC = () => {
 
             <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3">
-                    <Form.Label>Documento de Identidad (Alfanumérico)</Form.Label>
+                    <Form.Label>Document ID (Alphanumeric)</Form.Label>
                     <Form.Control type="text" value={formData.documentId} onChange={e => setFormData({...formData, documentId: e.target.value})} required />
                 </Form.Group>
 
                 <Row>
                     <Col>
                         <Form.Group className="mb-3">
-                            <Form.Label>Nombres (Sin números)</Form.Label>
+                            <Form.Label>First Name (No numbers)</Form.Label>
                             <Form.Control type="text" value={formData.firstName} onChange={e => setFormData({...formData, firstName: e.target.value})} required />
                         </Form.Group>
                     </Col>
                     <Col>
                         <Form.Group className="mb-3">
-                            <Form.Label>Apellidos (Sin números)</Form.Label>
+                            <Form.Label>Last Name (No numbers)</Form.Label>
                             <Form.Control type="text" value={formData.lastName} onChange={e => setFormData({...formData, lastName: e.target.value})} required />
                         </Form.Group>
                     </Col>
                 </Row>
 
                 <Form.Group className="mb-3">
-                    <Form.Label>Fecha de Nacimiento</Form.Label>
+                    <Form.Label>Birth Date</Form.Label>
                     <Form.Control type="date" value={formData.birthDate} onChange={e => setFormData({...formData, birthDate: e.target.value})} required />
                 </Form.Group>
 
-                <h4>Información de Contacto</h4>
-                <p className="text-muted">Máximo 2 teléfonos, 2 correos, 2 direcciones</p>
+                <h4>Contact Information</h4>
+                <p className="text-muted">Maximum 2 phones, 2 emails, 2 physical addresses</p>
                 
                 <Row className="mb-3">
                     <Col md={4}>
                         <Form.Select value={contactType} onChange={e => setContactType(e.target.value)}>
-                            <option value="Phone">Teléfono</option>
-                            <option value="Email">Correo Electrónico</option>
-                            <option value="Address">Dirección Física</option>
+                            <option value="Phone">Phone</option>
+                            <option value="Email">Email</option>
+                            <option value="Address">Physical Address</option>
                         </Form.Select>
                     </Col>
                     <Col md={6}>
-                        <Form.Control type="text" placeholder="Valor" value={contactValue} onChange={e => setContactValue(e.target.value)} />
+                        <Form.Control type="text" placeholder="Value" value={contactValue} onChange={e => setContactValue(e.target.value)} />
                     </Col>
                     <Col md={2}>
-                        <Button variant="secondary" onClick={handleAddContact}>Agregar</Button>
+                        <Button variant="secondary" onClick={handleAddContact}>Add</Button>
                     </Col>
                 </Row>
 
@@ -138,7 +157,7 @@ const PersonRegistration: React.FC = () => {
                 </ul>
 
                 <Button variant="primary" type="submit">
-                    Registrar Persona
+                    Register Person
                 </Button>
             </Form>
         </div>

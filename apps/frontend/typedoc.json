@@ -1,0 +1,9 @@
+{
+    "entryPoints": ["src/App.tsx", "src/pages/Ecommerce.tsx", "src/pages/PersonRegistration.tsx", "src/pages/QAResponses.tsx"],
+    "out": "docs",
+    "name": "SISTRAN Frontend Documentation",
+    "exclude": ["src/**/*.test.tsx", "src/**/*.spec.tsx"],
+    "excludePrivate": true,
+    "excludeProtected": true,
+    "excludeInternal": true
+}
