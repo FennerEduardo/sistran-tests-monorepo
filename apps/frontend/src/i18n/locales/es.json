@@ -5,6 +5,28 @@
     "qa": "Preguntas",
     "admin": "Admin"
   },
+  "home": {
+    "heroTitle": "Prueba Técnica",
+    "heroSubtitle": "Aplicación full-stack en monorepo construida con .NET 10 y React 19. Incluye plataforma E-Commerce completa, sistema de Registro de Personas con validación de reglas de negocio, módulo de Preguntas Teóricas y un Panel de Administración — todo con internacionalización completa (EN/ES), orquestación Docker y documentación Swagger.",
+    "featuresTitle": "Módulos de la Aplicación",
+    "featureEcommerce": "Tienda E-Commerce",
+    "featureEcommerceDesc": "Catálogo de productos con carrito de compras, flujo de checkout y badges de categoría. Respaldado por una API RESTful con localización via Accept-Language.",
+    "featureRegistration": "Registro de Personas",
+    "featureRegistrationDesc": "Formulario con validación en tiempo real aplicando reglas de negocio: IDs alfanuméricos, sin números en nombres, máximo 2 contactos por tipo.",
+    "featureQA": "Preguntas Teóricas",
+    "featureQADesc": "Pruebas completas de conocimiento en React y .NET/SQL con respuestas. Totalmente traducible mediante archivos JSON de locale.",
+    "featureAdmin": "Panel de Administración",
+    "featureAdminDesc": "Gestión CRUD completa para Productos y Categorías con campos bilingües, integración de búsqueda de imágenes Pexels y validación de duplicados.",
+    "archTitle": "Arquitectura y Stack Tecnológico",
+    "archDesc": "Esta aplicación sigue una estructura de monorepo limpia con una capa de orquestación Docker Compose. El backend expone una API RESTful documentada via Swagger/OpenAPI, mientras que el frontend la consume mediante llamadas fetch tipadas con cabeceras Accept-Language para localización dinámica.",
+    "docsTitle": "Documentación Disponible",
+    "docSwagger": "Swagger / OpenAPI",
+    "docSwaggerDesc": "Documentación interactiva de la API auto-generada desde el backend .NET. Explora todos los endpoints, modelos y prueba peticiones en vivo.",
+    "docGherkin": "Especificaciones BDD (Gherkin)",
+    "docGherkinDesc": "Especificaciones de Desarrollo Guiado por Comportamiento que describen todos los requerimientos funcionales en sintaxis Gherkin ejecutable (archivos .feature).",
+    "viewDocs": "Ver Documentación",
+    "quickStartTitle": "Inicio Rápido"
+  },
   "admin": {
     "title": "Panel de Administración",
     "description": "Gestiona productos y categorías de la tienda e-commerce.",

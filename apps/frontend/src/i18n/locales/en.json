@@ -5,6 +5,28 @@
     "qa": "Q&A",
     "admin": "Admin"
   },
+  "home": {
+    "heroTitle": "Technical Test",
+    "heroSubtitle": "Full-stack monorepo application built with .NET 10 and React 19. Features a complete E-Commerce platform, Person Registration system with business-rule validation, Theoretical Q&A module, and an Admin Panel — all with full internationalization (EN/ES), Docker orchestration, and Swagger documentation.",
+    "featuresTitle": "Application Modules",
+    "featureEcommerce": "E-Commerce Store",
+    "featureEcommerceDesc": "Product catalog with shopping cart, checkout flow, and category badges. Backed by a RESTful API with Accept-Language localization.",
+    "featureRegistration": "Person Registration",
+    "featureRegistrationDesc": "Form with real-time validation enforcing business rules: alphanumeric IDs, no numbers in names, max 2 contacts per type.",
+    "featureQA": "Theoretical Q&A",
+    "featureQADesc": "Complete React and .NET/SQL knowledge tests with answers. Fully translatable via i18n JSON locale files.",
+    "featureAdmin": "Admin Panel",
+    "featureAdminDesc": "Full CRUD management for Products and Categories with bilingual fields, Pexels image search integration, and duplicate validation.",
+    "archTitle": "Architecture & Technology Stack",
+    "archDesc": "This application follows a clean monorepo structure with a Docker Compose orchestration layer. The backend exposes a RESTful API documented via Swagger/OpenAPI, while the frontend consumes it through typed fetch calls with Accept-Language headers for dynamic localization.",
+    "docsTitle": "Available Documentation",
+    "docSwagger": "Swagger / OpenAPI",
+    "docSwaggerDesc": "Interactive API documentation auto-generated from the .NET backend. Explore all endpoints, models, and try requests live.",
+    "docGherkin": "BDD Feature Specs (Gherkin)",
+    "docGherkinDesc": "Behavior-Driven Development specifications describing all functional requirements in executable Gherkin syntax (.feature files).",
+    "viewDocs": "View Documentation",
+    "quickStartTitle": "Quick Start"
+  },
   "admin": {
     "title": "Administration Panel",
     "description": "Manage products and categories for the e-commerce store.",

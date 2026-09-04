@@ -1,7 +1,11 @@
 {
-  "projectName": "sistran-tests-monorepo",
-  "architecture": "Hexagonal Architecture",
-  "language": "csharp",
-  "framework": "dotnet",
-  "testRunner": "xunit"
+  "architecture": "Monorepo Monolith",
+  "stack": "csharp + dotnet + react + typescript",
+  "persistence": "efcore + sqlserver",
+  "tools": {
+    "testing": "cypress",
+    "validation": "data-annotations"
+  },
+  "outputDir": "./generated-specs",
+  "featuresDir": "./features"
 }

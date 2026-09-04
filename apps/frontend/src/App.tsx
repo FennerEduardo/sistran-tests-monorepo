@@ -1,4 +1,3 @@
-import React from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Moon, Sun, Globe } from 'lucide-react';
@@ -9,6 +8,7 @@ import Ecommerce from './pages/Ecommerce';
 import PersonRegistration from './pages/PersonRegistration';
 import QAResponses from './pages/QAResponses';
 import Admin from './pages/Admin';
+import Home from './pages/Home';
 
 /**
  * Main Application Component
@@ -78,7 +78,7 @@ function App() {
 
       <main className="container" style={{ marginTop: '2rem', flexGrow: 1 }}>
         <Routes>
-          <Route path="/" element={<h2 className="text-center">{t('nav.qa')} & {t('nav.ecommerce')} Portal</h2>} />
+          <Route path="/" element={<Home />} />
           <Route path="/ecommerce/*" element={<Ecommerce />} />
           <Route path="/registration" element={<PersonRegistration />} />
           <Route path="/qa" element={<QAResponses />} />
