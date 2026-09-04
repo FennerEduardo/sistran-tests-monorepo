@@ -35,12 +35,15 @@ function App() {
   ];
 
   return (
-    <>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <header style={{ backgroundColor: 'var(--color-surface)', borderBottom: '1px solid var(--color-border)', padding: '1rem 0' }}>
         <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
-            <Link to="/" style={{ fontWeight: 800, fontSize: '1.25rem', color: 'var(--color-primary)' }}>
-              SISTRAN<span style={{ color: 'var(--color-accent)' }}>.</span>
+            <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
+              <img src="https://fennereduardo.com/favicon.svg" alt="Fenner Eduardo Logo" style={{ width: '28px', height: '28px' }} />
+              <div style={{ fontWeight: 800, fontSize: '1.25rem', color: 'var(--color-primary)' }}>
+                SISTRAN<span style={{ color: 'var(--color-accent)' }}>.</span>
+              </div>
             </Link>
             <nav style={{ display: 'flex', gap: '1rem' }}>
               {navLinks.map((link) => (
@@ -71,7 +74,7 @@ function App() {
         </div>
       </header>
 
-      <main className="container mt-8">
+      <main className="container" style={{ marginTop: '2rem', flexGrow: 1 }}>
         <Routes>
           <Route path="/" element={<h2 className="text-center">{t('nav.qa')} & {t('nav.ecommerce')} Portal</h2>} />
           <Route path="/ecommerce/*" element={<Ecommerce />} />
@@ -79,7 +82,21 @@ function App() {
           <Route path="/qa" element={<QAResponses />} />
         </Routes>
       </main>
-    </>
+
+      <footer style={{ backgroundColor: 'var(--color-surface)', borderTop: '1px solid var(--color-border)', padding: '2rem 0', marginTop: '3rem', textAlign: 'center' }}>
+        <div className="container">
+          <p style={{ color: 'var(--color-text-secondary)', marginBottom: '0.5rem' }}>
+            &copy; {new Date().getFullYear()} SISTRAN Technical Test. All rights reserved.
+          </p>
+          <p style={{ fontSize: '0.875rem' }}>
+            Designed & Developed by{' '}
+            <a href="https://fennereduardo.com" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-primary)', fontWeight: 600, textDecoration: 'none' }}>
+              Fenner Eduardo
+            </a>
+          </p>
+        </div>
+      </footer>
+    </div>
   );
 }
 

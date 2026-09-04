@@ -25,15 +25,61 @@
     "error": "Error registering. Please check the data."
   },
   "qa": {
-    "title": "Q&A Technical Test",
-    "description": "Answers to the technical questions.",
-    "q1": "Explain the difference between a class and an object in C#.",
-    "a1": "A class is a blueprint or template that defines the properties and methods (behavior) that objects will have. An object is an instance of a class, created in memory, which holds actual data.",
-    "q2": "What is an interface in C# and what is it used for?",
-    "a2": "An interface defines a contract containing method and property signatures without implementation. It's used to achieve abstraction, enforce that classes implement specific members, and support multiple inheritance of behavior.",
-    "q3": "What is Entity Framework and what is its main function?",
-    "a3": "Entity Framework is an Object-Relational Mapper (ORM) for .NET. Its main function is to allow developers to work with a database using .NET objects, eliminating the need for most data-access code (SQL).",
-    "q4": "Mention 3 new features of C# 10 or later.",
-    "a4": "1. Global using directives. 2. File-scoped namespace declaration. 3. Required members (C# 11) / Primary constructors for non-record classes (C# 12)."
+    "title": "Theoretical Questions & Answers",
+    "description": "Implementation of React and .NET knowledge tests.",
+    "reactTestTitle": "React Test",
+    "dotnetTestTitle": ".NET & SQL Test",
+    "reactQuestions": [
+      {
+        "q": "1. What is the error in this useEffect?",
+        "a": "Answer C: The dependency array should be []. (Option C is correct because props.value was passed directly instead of [props.value])."
+      },
+      {
+        "q": "2. What happens with this React state?",
+        "a": "Answer B: Both calls use the same previous value, so it only increments once. (State is queued without callback prev => prev + 1)."
+      },
+      {
+        "q": "3. Why doesn't this useContext update child components?",
+        "a": "Answer C: The cart state is not tied to useState, so changes aren't detected."
+      },
+      {
+        "q": "4. What is the problem with this useEffect?",
+        "a": "Answer D: If fetchData depends on props or state, it should be in the dependency array."
+      },
+      {
+        "q": "5. What happens with the following useReducer?",
+        "a": "Answer B: The state is being mutated directly; it should return a new copy."
+      }
+    ],
+    "dotnetQuestions": [
+      {
+        "q": "1. What is the result after executing the algorithm?",
+        "a": "Answer D: Result 1: 69, Result 2: 49. (Iterates over people, max age is 69 and average is 49)."
+      },
+      {
+        "q": "2. Which of the following options shows complete info?",
+        "a": "Answer D: a and b are correct."
+      },
+      {
+        "q": "3. M.V.C Acronym Concept:",
+        "a": "Answer A: It is a useful design pattern for presentation components."
+      },
+      {
+        "q": "4. Pattern ensuring a single instance (Singleton):",
+        "a": "Answer D: None of the above."
+      },
+      {
+        "q": "5. O.R.M Definition:",
+        "a": "Answer B: A programming technique for converting data between relational databases and object types."
+      },
+      {
+        "q": "6. SQL orders >= 5:",
+        "a": "Answer B: Correctly uses GROUP BY and then HAVING COUNT >= 5."
+      },
+      {
+        "q": "7. Age not between 40 and 50:",
+        "a": "Answer D: Uses NOT BETWEEN (40,50)."
+      }
+    ]
   }
 }

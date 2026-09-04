@@ -25,15 +25,61 @@
     "error": "Error al registrar. Por favor revisa los datos."
   },
   "qa": {
-    "title": "Preguntas y Respuestas Técnicas",
-    "description": "Respuestas a la prueba técnica.",
-    "q1": "Explica la diferencia entre una clase y un objeto en C#.",
-    "a1": "Una clase es una plantilla que define las propiedades y métodos. Un objeto es una instancia de una clase, creada en memoria, que contiene datos reales.",
-    "q2": "¿Qué es una interfaz en C# y para qué sirve?",
-    "a2": "Una interfaz define un contrato con firmas de métodos y propiedades sin implementación. Sirve para lograr abstracción, forzar a las clases a implementar miembros específicos y soportar herencia múltiple de comportamiento.",
-    "q3": "¿Qué es Entity Framework y cuál es su función principal?",
-    "a3": "Entity Framework es un ORM (Mapeador Objeto-Relacional) para .NET. Su función principal es permitir a los desarrolladores trabajar con la base de datos usando objetos .NET, eliminando gran parte del código SQL.",
-    "q4": "Menciona 3 características nuevas de C# 10 o posterior.",
-    "a4": "1. Directivas using globales. 2. Declaración de namespace a nivel de archivo. 3. Miembros requeridos (C# 11) / Constructores primarios (C# 12)."
+    "title": "Preguntas y Respuestas Teóricas",
+    "description": "Implementación de pruebas de conocimiento en React y .NET.",
+    "reactTestTitle": "Prueba de React",
+    "dotnetTestTitle": "Prueba de .NET y SQL",
+    "reactQuestions": [
+      {
+        "q": "1. ¿Cuál es el error en este useEffect?",
+        "a": "Respuesta C: El arreglo de dependencias debería ser []. (La opción C es correcta porque props.value se pasó directamente en lugar de [props.value])."
+      },
+      {
+        "q": "2. ¿Qué pasa con este estado de React?",
+        "a": "Respuesta B: Ambas llamadas usan el mismo valor anterior, por lo que solo incrementa una vez. (El estado se encola sin callback prev => prev + 1)."
+      },
+      {
+        "q": "3. ¿Por qué este useContext no actualiza los componentes hijos?",
+        "a": "Respuesta C: El estado del carrito no está atado a useState, así que los cambios no se detectan."
+      },
+      {
+        "q": "4. ¿Cuál es el problema con este useEffect?",
+        "a": "Respuesta D: Si fetchData depende de props o state, debería estar en el array de dependencias."
+      },
+      {
+        "q": "5. ¿Qué sucede con el siguiente useReducer?",
+        "a": "Respuesta B: El estado se está mutando directamente; debería retornar una copia nueva."
+      }
+    ],
+    "dotnetQuestions": [
+      {
+        "q": "1. ¿Cuál es el resultado luego de ejecutar el algoritmo?",
+        "a": "Respuesta D: Resultado 1: 69, Resultado 2: 49. (Itera sobre personas, edad máxima 69, promedio 49)."
+      },
+      {
+        "q": "2. ¿Cuál de las siguientes opciones muestra info completa?",
+        "a": "Respuesta D: a y b son correctas."
+      },
+      {
+        "q": "3. Concepto del acrónimo M.V.C:",
+        "a": "Respuesta A: Es un patrón de diseño útil para componentes de presentación."
+      },
+      {
+        "q": "4. Patrón que asegura una única instancia (Singleton):",
+        "a": "Respuesta D: Ninguna de las anteriores."
+      },
+      {
+        "q": "5. Definición de O.R.M:",
+        "a": "Respuesta B: Una técnica de programación para convertir datos entre bases de datos relacionales y tipos de objetos."
+      },
+      {
+        "q": "6. Órdenes SQL >= 5:",
+        "a": "Respuesta B: Usa correctamente GROUP BY y luego HAVING COUNT >= 5."
+      },
+      {
+        "q": "7. Edad no comprendida entre 40 y 50:",
+        "a": "Respuesta D: Usa NOT BETWEEN (40,50)."
+      }
+    ]
   }
 }

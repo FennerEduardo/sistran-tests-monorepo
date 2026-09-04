@@ -91,12 +91,17 @@ const CartWidget: React.FC = () => {
  * @returns {React.JSX.Element} The product list grid.
  */
 const ItemListContainer: React.FC = () => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const [products, setProducts] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        fetch('http://localhost:5000/api/products')
+        setIsLoading(true);
+        fetch('http://localhost:5000/api/products', {
+            headers: {
+                'Accept-Language': i18n.language
+            }
+        })
             .then(r => r.json())
             .then(result => {
                 if (result && result.success) {
@@ -107,13 +112,13 @@ const ItemListContainer: React.FC = () => {
             })
             .catch(() => {
                 setProducts([
-                    { id: 1, title: 'Mock Laptop', price: 1000, description: 'High performance laptop', imageUrl: 'https://via.placeholder.com/150' },
-                    { id: 2, title: 'Mock Book', price: 20, description: 'Interesting read', imageUrl: 'https://via.placeholder.com/150' },
-                    { id: 3, title: 'Mock Headphones', price: 150, description: 'Noise cancelling', imageUrl: 'https://via.placeholder.com/150' }
+                    { id: 1, title: 'Mock Laptop', price: 1000, description: 'High performance laptop', imageUrl: 'https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_.jpg' },
+                    { id: 2, title: 'Mock Book', price: 20, description: 'Interesting read', imageUrl: 'https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg' },
+                    { id: 3, title: 'Mock Headphones', price: 150, description: 'Noise cancelling', imageUrl: 'https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg' }
                 ]);
             })
             .finally(() => setIsLoading(false));
-    }, []);
+    }, [i18n.language]);
 
     if (isLoading) {
         return <p>{t('ecommerce.loading')}</p>;
