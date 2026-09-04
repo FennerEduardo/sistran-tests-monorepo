@@ -1,0 +1,16 @@
+node_modules/
+dist/
+build/
+docs/
+.vscode/
+bin/
+obj/
+*.user
+*.suo
+.eslintcache
+.vite/
+.cypress/
+coverage/
+.vs/
+.DS_Store
+.idea/
