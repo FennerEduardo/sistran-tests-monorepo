@@ -37,15 +37,15 @@ function App() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <header style={{ backgroundColor: 'var(--color-surface)', borderBottom: '1px solid var(--color-border)', padding: '1rem 0' }}>
-        <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+        <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', flexWrap: 'wrap' }}>
             <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
               <img src="https://fennereduardo.com/favicon.svg" alt="Fenner Eduardo Logo" style={{ width: '28px', height: '28px' }} />
               <div style={{ fontWeight: 800, fontSize: '1.25rem', color: 'var(--color-primary)' }}>
                 SISTRAN<span style={{ color: 'var(--color-accent)' }}>.</span>
               </div>
             </Link>
-            <nav style={{ display: 'flex', gap: '1rem' }}>
+            <nav style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
               {navLinks.map((link) => (
                 <Link
                   key={link.path}

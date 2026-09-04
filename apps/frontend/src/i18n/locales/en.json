@@ -49,6 +49,26 @@
       {
         "q": "5. What happens with the following useReducer?",
         "a": "Answer B: The state is being mutated directly; it should return a new copy."
+      },
+      {
+        "q": "6. Why doesn't the button onClick={handleClick()} work?",
+        "a": "Answer B: The handleClick() function executes immediately upon rendering."
+      },
+      {
+        "q": "7. What is wrong with const [inputValue, setInputValue] = useState();?",
+        "a": "Answer C: The input might show undefined; it's recommended to initialize with ''."
+      },
+      {
+        "q": "8. What problem is caused by setCounter(counter + 1) inside a useEffect depending on [counter]?",
+        "a": "Answer B: This can cause an infinite loop of updates."
+      },
+      {
+        "q": "9. What is a common risk when using nested useContext?",
+        "a": "Answer C: If any context lacks a parent Provider, it will return undefined."
+      },
+      {
+        "q": "10. What is a risk when updating objects with useState using setUser(user);?",
+        "a": "Answer A: If user's reference doesn't change, React won't re-render."
       }
     ],
     "dotnetQuestions": [
@@ -79,6 +99,30 @@
       {
         "q": "7. Age not between 40 and 50:",
         "a": "Answer D: Uses NOT BETWEEN (40,50)."
+      },
+      {
+        "q": "8. Employees whose name starts with 'Lu':",
+        "a": "Answer C: SELECT ... WHERE Empleado.Nombre LIKE 'Lu%';"
+      },
+      {
+        "q": "9. Employees and their orders count, including those with 0 orders:",
+        "a": "Answer D: SELECT ... FROM Empleado LEFT JOIN Orden ON ..."
+      },
+      {
+        "q": "10. jQuery Autocomplete to filter listItems:",
+        "a": "Answer A: Uses source:listItems and select:function(event,ui) to update the text."
+      },
+      {
+        "q": "11. JS validation for personal description:",
+        "a": "Answer D: I:1, II:3 and III:11. Validates letters, ID length, and gender."
+      },
+      {
+        "q": "12. Valid LINQ statement:",
+        "a": "Answer A: var consulta = from num in numeros where (num % 2 == 0) select num;"
+      },
+      {
+        "q": "13. DataContract definition to return XML Array:",
+        "a": "Answer A: [MessageContract(IsWrapped = false)] public class NombreClientes { [MessageBodyMember] public string[] Nombres; }"
       }
     ]
   }

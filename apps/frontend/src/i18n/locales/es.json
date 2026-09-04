@@ -49,6 +49,26 @@
       {
         "q": "5. ¿Qué sucede con el siguiente useReducer?",
         "a": "Respuesta B: El estado se está mutando directamente; debería retornar una copia nueva."
+      },
+      {
+        "q": "6. ¿Por qué no funciona el botón onClick={handleClick()}?",
+        "a": "Respuesta B: La función handleClick() se ejecuta inmediatamente al renderizar."
+      },
+      {
+        "q": "7. ¿Qué está mal con const [inputValue, setInputValue] = useState();?",
+        "a": "Respuesta C: El input podría mostrar undefined; se recomienda iniciar con ''."
+      },
+      {
+        "q": "8. ¿Qué problema causa setCounter(counter + 1) dentro de un useEffect que depende de [counter]?",
+        "a": "Respuesta B: Esto puede generar un bucle infinito de actualizaciones."
+      },
+      {
+        "q": "9. ¿Cuál es un riesgo común al usar useContext de forma anidada?",
+        "a": "Respuesta C: Si alguno de los contextos no tiene un Provider padre, retornará undefined."
+      },
+      {
+        "q": "10. ¿Cuál es un riesgo al actualizar objetos con useState usando setUser(user);?",
+        "a": "Respuesta A: Si user no cambia de referencia, React no vuelve a renderizar."
       }
     ],
     "dotnetQuestions": [
@@ -79,6 +99,30 @@
       {
         "q": "7. Edad no comprendida entre 40 y 50:",
         "a": "Respuesta D: Usa NOT BETWEEN (40,50)."
+      },
+      {
+        "q": "8. Empleados que comienzan con 'Lu':",
+        "a": "Respuesta C: SELECT ... WHERE Empleado.Nombre LIKE 'Lu%';"
+      },
+      {
+        "q": "9. Empleados y su cantidad de órdenes, incluso los que no tienen:",
+        "a": "Respuesta D: SELECT ... FROM Empleado LEFT JOIN Orden ON ..."
+      },
+      {
+        "q": "10. Autocomplete jQuery para filtrar listItems:",
+        "a": "Respuesta A: Usa source:listItems y select:function(event,ui) para actualizar el text."
+      },
+      {
+        "q": "11. Validación en JS de descripción personal:",
+        "a": "Respuesta D: I:1, II:3 y III:11. Valida letras, longitud de id y género."
+      },
+      {
+        "q": "12. Sentencia LINQ válida:",
+        "a": "Respuesta A: var consulta = from num in numeros where (num % 2 == 0) select num;"
+      },
+      {
+        "q": "13. Definición de DataContract para devolver Array XML:",
+        "a": "Respuesta A: [MessageContract(IsWrapped = false)] public class NombreClientes { [MessageBodyMember] public string[] Nombres; }"
       }
     ]
   }
