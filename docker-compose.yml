@@ -34,10 +34,42 @@ services:
       context: ./apps/frontend
       dockerfile: Dockerfile
     container_name: sistran_frontend
-    ports:
-      - "80:80"
+    environment:
+      - VIRTUAL_HOST=sistran.fennereduardo.com
+      - LETSENCRYPT_HOST=sistran.fennereduardo.com
+      - LETSENCRYPT_EMAIL=admin@fennereduardo.com
+    expose:
+      - "80"
     depends_on:
       - backend
 
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - certs:/etc/nginx/certs
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  acme-companion:
+    image: nginxproxy/acme-companion
+    container_name: nginx-proxy-acme
+    environment:
+      - DEFAULT_EMAIL=admin@fennereduardo.com
+    volumes_from:
+      - nginx-proxy
+    volumes:
+      - certs:/etc/nginx/certs:rw
+      - acme:/etc/acme.sh
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
 volumes:
   sqlserver_data:
+  certs:
+  vhost:
+  html:
+  acme:

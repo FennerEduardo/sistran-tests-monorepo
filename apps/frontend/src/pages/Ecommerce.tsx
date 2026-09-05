@@ -97,7 +97,7 @@ const ItemListContainer: React.FC = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        fetch('http://localhost:5000/api/products', {
+        fetch('/api/products', {
             headers: {
                 'Accept-Language': i18n.language
             }

@@ -67,7 +67,7 @@ const PersonRegistration: React.FC = () => {
         };
 
         try {
-            const response = await fetch('http://localhost:5000/api/persons', {
+            const response = await fetch('/api/persons', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)

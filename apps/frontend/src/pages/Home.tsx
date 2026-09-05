@@ -33,8 +33,8 @@ const Home: React.FC = () => {
     ];
 
     const docs = [
-        { title: t('home.docSwagger'), desc: t('home.docSwaggerDesc'), url: 'http://localhost:5000/swagger' },
-        { title: t('home.docTypedoc'), desc: t('home.docTypedocDesc'), url: 'http://localhost/docs' },
+        { title: t('home.docSwagger'), desc: t('home.docSwaggerDesc'), url: '/swagger' },
+        { title: t('home.docTypedoc'), desc: t('home.docTypedocDesc'), url: '/docs' },
         { title: t('home.docGherkin'), desc: t('home.docGherkinDesc'), url: null },
     ];
 
@@ -133,10 +133,10 @@ cd sistran-tests-monorepo
 docker-compose up -d --build
 
 # Access the application
-Frontend:  http://localhost
-Backend:   http://localhost:5000
-Swagger:   http://localhost:5000/swagger
-Frontend Docs: http://localhost/docs`}
+Frontend:  https://sistran.fennereduardo.com
+Backend:   https://sistran.fennereduardo.com/api
+Swagger:   https://sistran.fennereduardo.com/swagger
+Docs:      https://sistran.fennereduardo.com/docs`}
                     </pre>
                 </CardBody>
             </Card>

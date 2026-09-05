@@ -5,7 +5,7 @@ import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
 import { Pencil, Trash2, Plus, Search, Image as ImageIcon } from 'lucide-react';
 
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = '/api';
 const PEXELS_API_KEY = 'RNVYohOywIKlCE8tNWNDMFULSJW9imnRCAHlUdmzJHxGJaHdH8b5d66R';
 
 /**
