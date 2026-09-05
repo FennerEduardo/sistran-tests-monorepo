@@ -10,6 +10,7 @@ import PersonList from './pages/PersonList';
 import QAResponses from './pages/QAResponses';
 import Admin from './pages/Admin';
 import Home from './pages/Home';
+import OrderList from './pages/OrderList';
 
 /**
  * Main Application Component
@@ -32,6 +33,7 @@ function App() {
 
     const navLinks = [
     { path: '/ecommerce', label: t('nav.ecommerce') },
+    { path: '/orders', label: t('nav.orders') },
     { path: '/registration', label: t('nav.register') },
     { path: '/persons', label: t('nav.persons') },
     { path: '/qa', label: t('nav.qa') },
@@ -82,6 +84,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/ecommerce/*" element={<Ecommerce />} />
+          <Route path="/orders" element={<OrderList />} />
           <Route path="/registration" element={<PersonRegistration />} />
           <Route path="/persons" element={<PersonList />} />
           <Route path="/qa" element={<QAResponses />} />

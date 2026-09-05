@@ -1,6 +1,7 @@
 {
   "nav": {
     "ecommerce": "E-Commerce",
+    "orders": "Orders",
     "register": "Registration",
     "persons": "Registered List",
     "qa": "Q&A",

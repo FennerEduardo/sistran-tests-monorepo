@@ -56,6 +56,18 @@ namespace BackendAPI.Models
         public DateTime OrderDate { get; set; }
         /// <summary>The total calculated amount for all items in the order.</summary>
         public decimal Total { get; set; }
+
+        // Buyer Information
+        public string? BuyerName { get; set; }
+        public string? BuyerDocument { get; set; }
+        public string? BuyerEmail { get; set; }
+        public string? BuyerPhone { get; set; }
+
+        // Optional relationship to registered person
+        public int? PersonId { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public Person? Person { get; set; }
+
         /// <summary>The list of line items included in this order.</summary>
         public List<OrderItem> Items { get; set; } = new List<OrderItem>();
     }

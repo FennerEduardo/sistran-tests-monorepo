@@ -24,6 +24,7 @@ namespace BackendAPI.Controllers
         public async Task<IActionResult> GetOrders()
         {
             var orders = await _context.Orders
+                .Include(o => o.Person)
                 .Include(o => o.Items)
                 .ThenInclude(i => i.Product)
                 .ToListAsync();
@@ -35,6 +36,7 @@ namespace BackendAPI.Controllers
         public async Task<IActionResult> GetOrder(int id)
         {
             var order = await _context.Orders
+                .Include(o => o.Person)
                 .Include(o => o.Items)
                 .ThenInclude(i => i.Product)
                 .FirstOrDefaultAsync(o => o.Id == id);
