@@ -45,6 +45,33 @@ const PersonRegistration: React.FC = () => {
      */
     const handleAddContact = () => {
         if (!contactValue) return;
+
+        if (contactType.value === 'Email') {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(contactValue)) {
+                setError(t('form.invalidEmail'));
+                return;
+            }
+        } else if (contactType.value === 'Phone') {
+            const phoneRegex = /^[\d\s\-\+\(\)]+$/;
+            if (!phoneRegex.test(contactValue) || contactValue.length < 5) {
+                setError(t('form.invalidPhone'));
+                return;
+            }
+        } else if (contactType.value === 'Address') {
+            if (contactValue.length < 5) {
+                setError(t('form.invalidAddress'));
+                return;
+            }
+        }
+
+        const currentCount = contacts.filter(c => c.type === contactType.value).length;
+        if (currentCount >= 2) {
+            setError(t('form.errorLimit'));
+            return;
+        }
+
+        setError(null);
         setContacts([...contacts, { type: contactType.value, value: contactValue }]);
         setContactValue('');
     };
@@ -174,6 +201,8 @@ const PersonRegistration: React.FC = () => {
                                 value={formData.documentId} 
                                 onChange={e => setFormData({...formData, documentId: e.target.value})} 
                                 required 
+                                pattern="^[a-zA-Z0-9]+$"
+                                title="Only alphanumeric characters allowed"
                                 className="mb-0"
                             />
 
@@ -198,6 +227,8 @@ const PersonRegistration: React.FC = () => {
                                 value={formData.firstName} 
                                 onChange={e => setFormData({...formData, firstName: e.target.value})} 
                                 required 
+                                pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$"
+                                title="Only alphabetical characters allowed"
                                 className="mb-0"
                             />
 
@@ -207,6 +238,8 @@ const PersonRegistration: React.FC = () => {
                                 value={formData.lastName} 
                                 onChange={e => setFormData({...formData, lastName: e.target.value})} 
                                 required 
+                                pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$"
+                                title="Only alphabetical characters allowed"
                                 className="mb-0"
                             />
                         </div>

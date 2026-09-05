@@ -87,7 +87,11 @@
     "submit": "Register",
     "submitting": "Registering...",
     "success": "Registration successful!",
-    "error": "Failed to register. Please check your data."
+    "error": "Failed to register. Please check your data.",
+    "errorLimit": "You cannot add more than 2 contacts of this type.",
+    "invalidEmail": "Please enter a valid email address.",
+    "invalidPhone": "Please enter a valid phone number (digits and symbols only).",
+    "invalidAddress": "Please enter a valid address (minimum 5 characters)."
   },
   "qa": {
     "title": "Theoretical Questions & Answers",

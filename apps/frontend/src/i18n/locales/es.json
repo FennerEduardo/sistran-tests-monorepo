@@ -87,7 +87,11 @@
     "submit": "Registrar",
     "submitting": "Registrando...",
     "success": "¡Registro exitoso!",
-    "error": "Error al registrar. Por favor revisa los datos."
+    "error": "Error al registrar. Por favor revisa los datos.",
+    "errorLimit": "No puedes agregar más de 2 contactos de este tipo.",
+    "invalidEmail": "Por favor ingresa un correo electrónico válido.",
+    "invalidPhone": "Por favor ingresa un teléfono válido (sólo números y símbolos).",
+    "invalidAddress": "Por favor ingresa una dirección física válida (mínimo 5 caracteres)."
   },
   "qa": {
     "title": "Preguntas y Respuestas Teóricas",
