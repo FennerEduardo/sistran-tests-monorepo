@@ -21,6 +21,7 @@ services:
     restart: always
     environment:
       - ConnectionStrings__DefaultConnection=Server=db,1433;Database=SistranDB;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
+      - PEXELS_API_KEY=RNVYohOywIKlCE8tNWNDMFULSJW9imnRCAHlUdmzJHxGJaHdH8b5d66R
     ports:
       - "5000:8080"
     depends_on:

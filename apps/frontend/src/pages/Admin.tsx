@@ -6,13 +6,12 @@ import { Input } from '../components/ui/Input';
 import { Pencil, Trash2, Plus, Search, Image as ImageIcon } from 'lucide-react';
 
 const API_BASE = '/api';
-const PEXELS_API_KEY = 'RNVYohOywIKlCE8tNWNDMFULSJW9imnRCAHlUdmzJHxGJaHdH8b5d66R';
 
 /**
  * Admin Panel Component
  *
  * Provides full CRUD management for Categories and Products.
- * Integrates with Pexels API for product image search.
+ * Integrates with the backend proxy for Pexels product image search.
  *
  * @returns {React.JSX.Element} The Admin panel page.
  */
@@ -284,9 +283,7 @@ const ProductsCrud: React.FC = () => {
         if (!pexelsQuery.trim()) return;
         setPexelsLoading(true);
         try {
-            const res = await fetch(`https://api.pexels.com/v1/search?query=${encodeURIComponent(pexelsQuery)}&per_page=6&size=small`, {
-                headers: { 'Authorization': PEXELS_API_KEY }
-            });
+            const res = await fetch(`${API_BASE}/pexels/search?query=${encodeURIComponent(pexelsQuery)}&per_page=6&size=small`);
             const data = await res.json();
             setPexelsResults(data.photos || []);
         } catch { setPexelsResults([]); }
