@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 
 namespace BackendAPI.Models
 {
@@ -47,8 +49,9 @@ namespace BackendAPI.Models
 
     /// <summary>
     /// Represents a customer order.
+    /// Implements validation logic for guest buyer details.
     /// </summary>
-    public class Order
+    public class Order : IValidatableObject
     {
         /// <summary>Unique identifier for the order.</summary>
         public int Id { get; set; }
@@ -70,6 +73,37 @@ namespace BackendAPI.Models
 
         /// <summary>The list of line items included in this order.</summary>
         public List<OrderItem> Items { get; set; } = new List<OrderItem>();
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (!PersonId.HasValue)
+            {
+                if (string.IsNullOrWhiteSpace(BuyerName))
+                    yield return new ValidationResult("Buyer Name is required for guest checkout.", new[] { nameof(BuyerName) });
+                else if (BuyerName.Length < 3 || BuyerName.Length > 100)
+                    yield return new ValidationResult("Buyer Name must be between 3 and 100 characters.", new[] { nameof(BuyerName) });
+
+                if (string.IsNullOrWhiteSpace(BuyerDocument))
+                    yield return new ValidationResult("Buyer Document is required for guest checkout.", new[] { nameof(BuyerDocument) });
+
+                if (!string.IsNullOrWhiteSpace(BuyerEmail))
+                {
+                    if (!Regex.IsMatch(BuyerEmail, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+                        yield return new ValidationResult("Invalid email format.", new[] { nameof(BuyerEmail) });
+                }
+
+                if (!string.IsNullOrWhiteSpace(BuyerPhone))
+                {
+                    if (!Regex.IsMatch(BuyerPhone, @"^[\d\s\-\+\(\)]+$"))
+                        yield return new ValidationResult("Invalid phone number format.", new[] { nameof(BuyerPhone) });
+                }
+
+                if (string.IsNullOrWhiteSpace(BuyerEmail) && string.IsNullOrWhiteSpace(BuyerPhone))
+                {
+                    yield return new ValidationResult("At least one contact method (Email or Phone) must be provided for guest checkout.", new[] { nameof(BuyerEmail), nameof(BuyerPhone) });
+                }
+            }
+        }
     }
 
     /// <summary>

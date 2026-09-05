@@ -1,24 +1,57 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import { Link, Routes, Route, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import CryptoJS from 'crypto-js';
 import { Card, CardHeader, CardBody, CardFooter } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 
 /**
+ * Secret key for encrypting the shopping cart in localStorage.
+ * In a real application, this should be an environment variable.
+ */
+const CART_SECRET_KEY = 'Sistran_Secure_Cart_Key_2026';
+const CART_STORAGE_KEY = 'sistran_cart_data';
+
+/**
  * Context to share the shopping cart state across Ecommerce components.
  */
-const CartContext = createContext<any>(null);
+export const CartContext = createContext<any>(null);
 
 /**
  * Ecommerce Component
  * 
  * Serves as the main layout and state provider for the mini e-commerce test.
+ * Features secure client-side cart persistence using AES encryption.
  * 
  * @returns {React.JSX.Element} The Ecommerce view.
  */
 const Ecommerce: React.FC = () => {
     const { t } = useTranslation();
-    const [cart, setCart] = useState<any[]>([]);
+    
+    // Initialize cart from encrypted local storage if available
+    const [cart, setCart] = useState<any[]>(() => {
+        try {
+            const encryptedCart = localStorage.getItem(CART_STORAGE_KEY);
+            if (encryptedCart) {
+                const bytes = CryptoJS.AES.decrypt(encryptedCart, CART_SECRET_KEY);
+                const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+                return Array.isArray(decryptedData) ? decryptedData : [];
+            }
+        } catch (e) {
+            console.error('Failed to decrypt cart data', e);
+        }
+        return [];
+    });
+
+    // Save cart to local storage securely whenever it changes
+    useEffect(() => {
+        try {
+            const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(cart), CART_SECRET_KEY).toString();
+            localStorage.setItem(CART_STORAGE_KEY, ciphertext);
+        } catch (e) {
+            console.error('Failed to encrypt cart data', e);
+        }
+    }, [cart]);
 
     /**
      * Adds a product to the cart or increments its quantity if it already exists.
