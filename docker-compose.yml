@@ -32,7 +32,7 @@ services:
       dockerfile: Dockerfile
     container_name: sistran_frontend
     environment:
-      - VIRTUAL_HOST=sistran.fennereduardo.com
+      - VIRTUAL_HOST=sistran.fennereduardo.com,localhost
       - LETSENCRYPT_HOST=sistran.fennereduardo.com
       - LETSENCRYPT_EMAIL=admin@fennereduardo.com
     expose:

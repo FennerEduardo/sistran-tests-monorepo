@@ -69,13 +69,25 @@
   "form": {
     "title": "Person Registration",
     "description": "Complete the form below to register a new person.",
+    "documentId": "Document ID (Alphanumeric)",
     "firstName": "First Name",
     "lastName": "Last Name",
+    "noNumbers": "(No numbers)",
     "birthDate": "Birth Date",
+    "contactInfo": "Contact Information",
+    "contactDesc": "Maximum 2 phones, 2 emails, 2 physical addresses",
+    "type": "Type",
+    "value": "Value",
+    "enterContact": "Enter contact detail...",
+    "add": "Add",
+    "remove": "Remove",
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Physical Address",
     "submit": "Register",
     "submitting": "Registering...",
     "success": "Registration successful!",
-    "error": "Error registering. Please check the data."
+    "error": "Failed to register. Please check your data."
   },
   "qa": {
     "title": "Theoretical Questions & Answers",

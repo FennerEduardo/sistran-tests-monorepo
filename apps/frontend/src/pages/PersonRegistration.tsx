@@ -3,6 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { Card, CardHeader, CardBody, CardFooter } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import Select from 'react-select';
 import type { ApiResponse } from '../types/api';
 
 /**
@@ -19,11 +22,17 @@ const PersonRegistration: React.FC = () => {
         documentId: '',
         firstName: '',
         lastName: '',
-        birthDate: ''
+        birthDate: new Date()
     });
 
     const [contacts, setContacts] = useState<{type: string, value: string}[]>([]);
-    const [contactType, setContactType] = useState('Phone');
+    
+    const contactOptions = [
+        { value: 'Phone', label: t('form.phone') },
+        { value: 'Email', label: t('form.email') },
+        { value: 'Address', label: t('form.address') }
+    ];
+    const [contactType, setContactType] = useState(contactOptions[0]);
     const [contactValue, setContactValue] = useState('');
 
     const [error, setError] = useState<string | null>(null);
@@ -36,7 +45,7 @@ const PersonRegistration: React.FC = () => {
      */
     const handleAddContact = () => {
         if (!contactValue) return;
-        setContacts([...contacts, { type: contactType, value: contactValue }]);
+        setContacts([...contacts, { type: contactType.value, value: contactValue }]);
         setContactValue('');
     };
 
@@ -63,6 +72,8 @@ const PersonRegistration: React.FC = () => {
 
         const payload = {
             ...formData,
+            // Convert Date object to YYYY-MM-DD string for backend
+            birthDate: formData.birthDate.toISOString().split('T')[0],
             contacts: contacts
         };
 
@@ -86,7 +97,7 @@ const PersonRegistration: React.FC = () => {
                 }
             } else {
                 setSuccess(result.message || t('form.success'));
-                setFormData({ documentId: '', firstName: '', lastName: '', birthDate: '' });
+                setFormData({ documentId: '', firstName: '', lastName: '', birthDate: new Date() });
                 setContacts([]);
             }
         } catch (err: any) {
@@ -96,115 +107,162 @@ const PersonRegistration: React.FC = () => {
         }
     };
 
+    // Custom styles for react-select to match the dark glassmorphic theme
+    const selectStyles = {
+        control: (base: any) => ({
+            ...base,
+            backgroundColor: 'var(--color-surface)',
+            borderColor: 'var(--color-border)',
+            color: 'var(--color-text-primary)',
+            padding: '2px', // Adjusted to match the Input component height
+            minHeight: '44px',
+            borderRadius: 'var(--radius-md)',
+            boxShadow: 'none',
+            '&:hover': {
+                borderColor: 'var(--color-primary)'
+            }
+        }),
+        menu: (base: any) => ({
+            ...base,
+            backgroundColor: 'var(--color-surface)',
+            border: '1px solid var(--color-border)',
+            zIndex: 100
+        }),
+        option: (base: any, state: any) => ({
+            ...base,
+            backgroundColor: state.isFocused ? 'var(--color-primary-light)' : 'transparent',
+            color: 'var(--color-text-primary)',
+            '&:active': {
+                backgroundColor: 'var(--color-primary)'
+            }
+        }),
+        singleValue: (base: any) => ({
+            ...base,
+            color: 'var(--color-text-primary)'
+        })
+    };
+
     return (
-        <Card className="mb-4">
-            <CardHeader>{t('form.title')}</CardHeader>
-            <CardBody>
-                <p className="mb-4">{t('form.description')}</p>
+        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+            <Card className="mb-4">
+                <CardHeader>{t('form.title')}</CardHeader>
+                <CardBody>
+                    <p className="mb-4" style={{ color: 'var(--color-text-secondary)' }}>{t('form.description')}</p>
 
-                {error && (
-                    <div style={{ backgroundColor: 'var(--color-error)', color: '#fff', padding: '1rem', borderRadius: 'var(--radius-md)', marginBottom: '1rem' }}>
-                        {error}
-                        {errorDetails.length > 0 && (
-                            <ul style={{ margin: '0.5rem 0 0 1rem' }}>
-                                {errorDetails.map((err, i) => <li key={i}>{err}</li>)}
-                            </ul>
-                        )}
-                    </div>
-                )}
-                {success && (
-                    <div style={{ backgroundColor: 'var(--color-success)', color: '#fff', padding: '1rem', borderRadius: 'var(--radius-md)', marginBottom: '1rem' }}>
-                        {success}
-                    </div>
-                )}
+                    {error && (
+                        <div style={{ backgroundColor: 'var(--color-error)', color: '#fff', padding: '1rem', borderRadius: 'var(--radius-md)', marginBottom: '1.5rem' }}>
+                            {error}
+                            {errorDetails.length > 0 && (
+                                <ul style={{ margin: '0.5rem 0 0 1rem' }}>
+                                    {errorDetails.map((err, i) => <li key={i}>{err}</li>)}
+                                </ul>
+                            )}
+                        </div>
+                    )}
+                    {success && (
+                        <div style={{ backgroundColor: 'var(--color-success)', color: '#fff', padding: '1rem', borderRadius: 'var(--radius-md)', marginBottom: '1.5rem' }}>
+                            {success}
+                        </div>
+                    )}
 
-                <form onSubmit={handleSubmit}>
-                    <Input 
-                        label="Document ID (Alphanumeric)" 
-                        type="text" 
-                        value={formData.documentId} 
-                        onChange={e => setFormData({...formData, documentId: e.target.value})} 
-                        required 
-                    />
-
-                    <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
-                        <div style={{ flex: '1 1 250px' }}>
+                    <form onSubmit={handleSubmit}>
+                        
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
                             <Input 
-                                label={`${t('form.firstName')} (No numbers)`}
+                                label={t('form.documentId')} 
+                                type="text" 
+                                value={formData.documentId} 
+                                onChange={e => setFormData({...formData, documentId: e.target.value})} 
+                                required 
+                                className="mb-0"
+                            />
+
+                            <div className="input-group mb-0">
+                                <label className="input-label" htmlFor="birthDate">
+                                    {t('form.birthDate')}
+                                </label>
+                                <DatePicker 
+                                    id="birthDate"
+                                    selected={formData.birthDate} 
+                                    onChange={(date: Date) => setFormData({...formData, birthDate: date})} 
+                                    dateFormat="dd/MM/yyyy"
+                                    className="input-control"
+                                    wrapperClassName="date-picker-wrapper"
+                                    required
+                                />
+                            </div>
+
+                            <Input 
+                                label={`${t('form.firstName')} ${t('form.noNumbers')}`}
                                 type="text" 
                                 value={formData.firstName} 
                                 onChange={e => setFormData({...formData, firstName: e.target.value})} 
                                 required 
+                                className="mb-0"
                             />
-                        </div>
-                        <div style={{ flex: '1 1 250px' }}>
+
                             <Input 
-                                label={`${t('form.lastName')} (No numbers)`}
+                                label={`${t('form.lastName')} ${t('form.noNumbers')}`}
                                 type="text" 
                                 value={formData.lastName} 
                                 onChange={e => setFormData({...formData, lastName: e.target.value})} 
                                 required 
+                                className="mb-0"
                             />
                         </div>
-                    </div>
 
-                    <div style={{ marginBottom: '1rem' }}>
-                        <Input 
-                            label={t('form.birthDate')}
-                            type="date" 
-                            value={formData.birthDate} 
-                            onChange={e => setFormData({...formData, birthDate: e.target.value})} 
-                            required 
-                        />
-                    </div>
+                        <hr style={{ border: 'none', borderTop: '1px solid var(--color-border)', margin: '2rem 0' }} />
 
-                    <h4 style={{ marginTop: '2rem', marginBottom: '1rem' }}>Contact Information</h4>
-                    <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.875rem' }}>Maximum 2 phones, 2 emails, 2 physical addresses</p>
-                    
-                    <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-end', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
-                        <div style={{ flex: '1 1 150px' }}>
-                            <label className="input-label" style={{ display: 'block', marginBottom: 'var(--space-1)' }}>Type</label>
-                            <select 
-                                className="input-control" 
-                                style={{ width: '100%' }}
-                                value={contactType} 
-                                onChange={e => setContactType(e.target.value)}
-                            >
-                                <option value="Phone">Phone</option>
-                                <option value="Email">Email</option>
-                                <option value="Address">Physical Address</option>
-                            </select>
+                        <h4 style={{ marginBottom: '0.5rem', fontSize: '1.25rem' }}>{t('form.contactInfo')}</h4>
+                        <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.875rem', marginBottom: '1.5rem' }}>
+                            {t('form.contactDesc')}
+                        </p>
+                        
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr auto', gap: '1rem', alignItems: 'end', marginBottom: '2rem' }}>
+                            <div className="input-group mb-0" style={{ width: '100%' }}>
+                                <label className="input-label">{t('form.type')}</label>
+                                <Select 
+                                    options={contactOptions}
+                                    value={contactType}
+                                    onChange={(option: any) => setContactType(option)}
+                                    styles={selectStyles}
+                                />
+                            </div>
+                            <div style={{ width: '100%' }}>
+                                <Input 
+                                    label={t('form.value')}
+                                    type="text" 
+                                    placeholder={t('form.enterContact')} 
+                                    value={contactValue} 
+                                    onChange={e => setContactValue(e.target.value)} 
+                                    className="mb-0"
+                                />
+                            </div>
+                            <div>
+                                <Button type="button" variant="secondary" onClick={handleAddContact} style={{ height: '44px', marginBottom: '0' }}>{t('form.add')}</Button>
+                            </div>
                         </div>
-                        <div style={{ flex: '2 1 200px' }}>
-                            <Input 
-                                label="Value"
-                                type="text" 
-                                placeholder="Value" 
-                                value={contactValue} 
-                                onChange={e => setContactValue(e.target.value)} 
-                                style={{ marginBottom: 0 }}
-                            />
-                        </div>
-                        <div style={{ flex: '0 0 auto', width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
-                            <Button type="button" variant="secondary" onClick={handleAddContact}>Add</Button>
-                        </div>
-                    </div>
 
-                    <ul style={{ listStyleType: 'none', padding: 0, marginBottom: '2rem' }}>
-                        {contacts.map((c, i) => (
-                            <li key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '0.5rem', backgroundColor: 'var(--color-background)', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-sm)', marginBottom: '0.5rem' }}>
-                                <span><strong>{c.type}:</strong> {c.value}</span>
-                                <Button type="button" variant="outline" size="sm" onClick={() => handleRemoveContact(i)}>X</Button>
-                            </li>
-                        ))}
-                    </ul>
+                        {contacts.length > 0 && (
+                            <ul style={{ listStyleType: 'none', padding: 0, marginBottom: '2rem' }}>
+                                {contacts.map((c, i) => (
+                                    <li key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.75rem 1rem', backgroundColor: 'var(--color-background)', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-md)', marginBottom: '0.75rem' }}>
+                                        <span><strong style={{ color: 'var(--color-primary)' }}>{contactOptions.find(o => o.value === c.type)?.label || c.type}:</strong> {c.value}</span>
+                                        <Button type="button" variant="outline" size="sm" onClick={() => handleRemoveContact(i)}>{t('form.remove')}</Button>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
 
-                    <Button variant="primary" type="submit" isLoading={isSubmitting} disabled={isSubmitting}>
-                        {isSubmitting ? t('form.submitting') : t('form.submit')}
-                    </Button>
-                </form>
-            </CardBody>
-        </Card>
+                        <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '3.5rem' }}>
+                            <Button variant="primary" type="submit" isLoading={isSubmitting} disabled={isSubmitting} style={{ padding: '0.75rem 2rem' }}>
+                                {isSubmitting ? t('form.submitting') : t('form.submit')}
+                            </Button>
+                        </div>
+                    </form>
+                </CardBody>
+            </Card>
+        </div>
     );
 };
 
