@@ -50,6 +50,11 @@ namespace BackendAPI.Controllers
             if (emailCount > 2) return BadRequest(ApiResponse<object>.ErrorResponse("Máximo 2 correos electrónicos permitidos."));
             if (addressCount > 2) return BadRequest(ApiResponse<object>.ErrorResponse("Máximo 2 direcciones físicas permitidas."));
 
+            if (emailCount == 0 && addressCount == 0)
+            {
+                return BadRequest(ApiResponse<object>.ErrorResponse("Debe registrar al menos una dirección de correo electrónico o una dirección física."));
+            }
+
             _context.Persons.Add(person);
             await _context.SaveChangesAsync();
 

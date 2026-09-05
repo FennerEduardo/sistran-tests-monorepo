@@ -53,3 +53,8 @@ Feature: Person Registration with Business Rule Validation
   Scenario: Add up to 2 physical address contacts
     When I send a POST request to "/api/persons" with 2 address contacts
     Then the response status should be 200
+
+  Scenario: Reject person without at least one email or physical address
+    When I send a POST request to "/api/persons" with only phone contacts
+    Then the response status should be 400
+    And the response body should contain "Debe registrar al menos una dirección de correo electrónico o una dirección física."

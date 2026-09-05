@@ -95,6 +95,14 @@ const PersonRegistration: React.FC = () => {
         setError(null);
         setErrorDetails([]);
         setSuccess(null);
+        
+        // Enforce requirement: At least one Email or Address
+        const hasEmailOrAddress = contacts.some(c => c.type === 'Email' || c.type === 'Address');
+        if (!hasEmailOrAddress) {
+            setError(t('form.missingContactReq') || 'Debe registrar al menos un correo electrónico o dirección física.');
+            return;
+        }
+
         setIsSubmitting(true);
 
         const payload = {

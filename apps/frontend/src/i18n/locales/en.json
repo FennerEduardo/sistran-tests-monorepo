@@ -2,6 +2,7 @@
   "nav": {
     "ecommerce": "E-Commerce",
     "register": "Registration",
+    "persons": "Registered List",
     "qa": "Q&A",
     "admin": "Admin"
   },
@@ -91,7 +92,19 @@
     "errorLimit": "You cannot add more than 2 contacts of this type.",
     "invalidEmail": "Please enter a valid email address.",
     "invalidPhone": "Please enter a valid phone number (digits and symbols only).",
-    "invalidAddress": "Please enter a valid address (minimum 5 characters)."
+    "invalidAddress": "Please enter a valid address (minimum 5 characters).",
+    "missingContactReq": "You must register at least one email or physical address."
+  },
+  "list": {
+    "title": "Registered Persons",
+    "description": "List of all persons registered in the system along with their contact info.",
+    "document": "Document",
+    "name": "Full Name",
+    "birthDate": "Birth Date",
+    "contacts": "Contacts",
+    "noPersons": "No persons registered yet.",
+    "loading": "Loading data...",
+    "error": "Failed to load the persons list."
   },
   "qa": {
     "title": "Theoretical Questions & Answers",

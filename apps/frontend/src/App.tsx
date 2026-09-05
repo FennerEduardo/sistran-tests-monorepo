@@ -6,6 +6,7 @@ import { Button } from './components/ui/Button';
 
 import Ecommerce from './pages/Ecommerce';
 import PersonRegistration from './pages/PersonRegistration';
+import PersonList from './pages/PersonList';
 import QAResponses from './pages/QAResponses';
 import Admin from './pages/Admin';
 import Home from './pages/Home';
@@ -29,9 +30,10 @@ function App() {
     localStorage.setItem('language', newLang);
   };
 
-  const navLinks = [
+    const navLinks = [
     { path: '/ecommerce', label: t('nav.ecommerce') },
     { path: '/registration', label: t('nav.register') },
+    { path: '/persons', label: t('nav.persons') },
     { path: '/qa', label: t('nav.qa') },
     { path: '/admin', label: t('nav.admin') },
   ];
@@ -81,6 +83,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/ecommerce/*" element={<Ecommerce />} />
           <Route path="/registration" element={<PersonRegistration />} />
+          <Route path="/persons" element={<PersonList />} />
           <Route path="/qa" element={<QAResponses />} />
           <Route path="/admin" element={<Admin />} />
         </Routes>

@@ -2,6 +2,7 @@
   "nav": {
     "ecommerce": "E-Commerce",
     "register": "Registro",
+    "persons": "Listado",
     "qa": "Preguntas",
     "admin": "Admin"
   },
@@ -91,7 +92,19 @@
     "errorLimit": "No puedes agregar más de 2 contactos de este tipo.",
     "invalidEmail": "Por favor ingresa un correo electrónico válido.",
     "invalidPhone": "Por favor ingresa un teléfono válido (sólo números y símbolos).",
-    "invalidAddress": "Por favor ingresa una dirección física válida (mínimo 5 caracteres)."
+    "invalidAddress": "Por favor ingresa una dirección física válida (mínimo 5 caracteres).",
+    "missingContactReq": "Debes registrar al menos un correo electrónico o una dirección física."
+  },
+  "list": {
+    "title": "Personas Registradas",
+    "description": "Lista de todas las personas registradas en el sistema con su información de contacto.",
+    "document": "Documento",
+    "name": "Nombres y Apellidos",
+    "birthDate": "Fecha Nac.",
+    "contacts": "Contactos",
+    "noPersons": "Aún no hay personas registradas.",
+    "loading": "Cargando datos...",
+    "error": "Error al cargar la lista de personas."
   },
   "qa": {
     "title": "Preguntas y Respuestas Teóricas",
