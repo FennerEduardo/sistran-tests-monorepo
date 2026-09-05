@@ -1,10 +1,10 @@
 name: CI/CD Pipeline to AWS EC2
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
+  workflow_run:
+    workflows: ["Run Tests"]
+    types:
+      - completed
     branches:
       - main
 
@@ -12,6 +12,7 @@ jobs:
   build-and-verify:
     name: Build & Verify (CI)
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
       - name: Checkout Code
@@ -50,7 +51,6 @@ jobs:
     name: Deploy to AWS EC2 (CD)
     needs: build-and-verify
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
     steps:
       - name: Checkout Code
