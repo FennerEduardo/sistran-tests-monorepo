@@ -4,6 +4,7 @@ services:
   db:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: sqlserver_db
+    restart: always
     environment:
       ACCEPT_EULA: "Y"
       MSSQL_SA_PASSWORD: "YourStrong!Passw0rd"
@@ -22,6 +23,7 @@ services:
       context: ./apps/backend
       dockerfile: Dockerfile
     container_name: sistran_backend
+    restart: always
     environment:
       - ConnectionStrings__DefaultConnection=Server=db,1433;Database=SistranDB;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
     ports:
