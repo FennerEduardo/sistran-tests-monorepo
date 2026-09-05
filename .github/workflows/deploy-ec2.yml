@@ -1,0 +1,96 @@
+name: CI/CD Pipeline to AWS EC2
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-verify:
+    name: Build & Verify (CI)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # --- Backend Verification ---
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore Backend Dependencies
+        run: dotnet restore apps/backend/BackendAPI.csproj
+
+      - name: Build Backend
+        run: dotnet build apps/backend/BackendAPI.csproj --configuration Release --no-restore
+
+      # --- Frontend Verification ---
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: apps/frontend/package-lock.json
+
+      - name: Install Frontend Dependencies
+        working-directory: ./apps/frontend
+        run: npm install --legacy-peer-deps
+
+      - name: Build Frontend
+        working-directory: ./apps/frontend
+        run: npm run build
+
+
+  deploy:
+    name: Deploy to AWS EC2 (CD)
+    needs: build-and-verify
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Copy project files to EC2 via SCP
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          source: "."
+          target: "/home/${{ secrets.EC2_USERNAME }}/sistran-app"
+          strip_components: 0
+
+      - name: Execute Docker Compose on EC2 via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          script: |
+            # Navigate to the project directory
+            cd /home/${{ secrets.EC2_USERNAME }}/sistran-app
+            
+            # Ensure Docker and Docker-Compose are ready (Optional fallback)
+            if ! command -v docker &> /dev/null; then
+              echo "Docker not found. Installing Docker..."
+              curl -fsSL https://get.docker.com -o get-docker.sh
+              sudo sh get-docker.sh
+              sudo usermod -aG docker ${{ secrets.EC2_USERNAME }}
+            fi
+
+            # Stop existing containers
+            sudo docker-compose down || true
+            
+            # Rebuild and start services in detached mode
+            sudo docker-compose up -d --build
+            
+            # Prune unused docker images to save EC2 disk space
+            sudo docker image prune -f
