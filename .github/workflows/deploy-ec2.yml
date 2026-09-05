@@ -75,6 +75,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
           script: |
+            set -e
             # Navigate to the project directory
             cd /home/${{ secrets.EC2_USERNAME }}/sistran-app
             
@@ -87,10 +88,10 @@ jobs:
             fi
 
             # Stop existing containers
-            sudo docker-compose down || true
+            sudo docker compose down || true
             
             # Rebuild and start services in detached mode
-            sudo docker-compose up -d --build
+            sudo docker compose up -d --build
             
             # Prune unused docker images to save EC2 disk space
             sudo docker image prune -f
